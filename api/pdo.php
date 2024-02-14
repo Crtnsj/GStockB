@@ -1,13 +1,20 @@
 <?php
 $host = 'localhost'; // Hôte de la base de données
 $dbname = 'GStockB'; // Nom de la base de données
-$username = 'GStockB'; // Nom d'utilisateur de la base de données
-$password = 'Tsqa&r7PT&!pHc'; // Mot de passe de la base de données
+$username = 'root'; // Nom d'utilisateur de la base de données
+$password = ''; // Mot de passe de la base de données
+
+
+//connexion a la base de donnée
+define('HOST', 'localhost');
+define('DB_NAME', 'GStockB'); //définition de la database
+define('USER', 'root');
+define('PASS', '');
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    // Définir le mode d'erreur de PDO à exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Impossible de se connecter à la base de données : " . $e->getMessage());
+    $db = new PDO("mysql:host=" . HOST . ";dbname=" . DB_NAME, USER, PASS); //variable  qui accede a la base de donnée
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // echo "Connect > ok "; // si il arrive a se connecté il dirat ok
+} catch (PDOException $e) { //sinon il affichera cette erreur
+    echo $e;
 }

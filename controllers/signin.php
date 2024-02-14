@@ -1,7 +1,7 @@
 <?php
-
-include '../API/pdo.php';
-global $db;
+session_start();
+include "../api/pdo.php";
+$db = new Database();
 
 try {
     if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -9,16 +9,17 @@ try {
         $password = $_POST['password'];
 
         $sql = "SELECT * FROM utilisateurs WHERE email_u = :email";
-        $stmt = $db->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        $result = $stmt->fetch();
+        $db->query($sql);
+        $db->bind(':email', $email);
+        $result = $db->resultSet();
 
         if ($result) {
-            if ($result && password_verify($password, $result['mot_de_passe'])) {
-                $_SESSION['id_u'] = $result["id_u"];
-                $_SESSION['email_u'] = $result['email_u'];
-                $_SESSION['lname'] = $result['nom_u'];
-                $_SESSION['fname'] = $result['prenom_u'];
+            $user = $result[0];
+            if (password_verify($password, $user->mot_de_passe)) {
+                $_SESSION['id_u'] = $user->id_u;
+                $_SESSION['email_u'] = $user->email_u;
+                $_SESSION['lname'] = $user->nom_u;
+                $_SESSION['fname'] = $user->prenom_u;
                 header("location: ../vues/v_home.php");
                 exit();
             } else {

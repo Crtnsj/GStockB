@@ -1,7 +1,7 @@
 <?php
 
-include '../API/pdo.php';
-global $db;
+include "../api/pdo.php";
+$db = new Database();
 
 try {
     if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -13,8 +13,12 @@ try {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO `utilisateurs` (`id_u`, `nom_u`, `prenom_u`, `email_u`, `mot_de_passe`, `id_role`) VALUES (NULL, :lname , :fname, :email, :hash, '2');";
-        $stmt = $db->prepare($sql);
-        $stmt->execute(["lname" => $lname, "fname" => $fname, "email" => $email, "hash" => $hash]);
+        $db->query($sql);
+        $db->bind(':lname', $lname);
+        $db->bind(':fname', $fname);
+        $db->bind(':email', $email);
+        $db->bind(':hash', $hash);
+        $db->execute();
     } else {
         echo "tous les champs ne sont pas remplit";
     }

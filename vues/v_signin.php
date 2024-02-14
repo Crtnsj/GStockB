@@ -9,6 +9,7 @@
             </div>
             <input type="submit" value="Se Connecter">
         </form>
+        <a href="index.php?page=signup">Creer un compte</a>
     </div>
 
 </div>

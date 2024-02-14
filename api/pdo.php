@@ -1,13 +1,7 @@
 <?php
-$host = 'localhost'; // Hôte de la base de données
-$dbname = 'GStockB'; // Nom de la base de données
-$username = 'root'; // Nom d'utilisateur de la base de données
-$password = ''; // Mot de passe de la base de données
-
-
 //connexion a la base de donnée
 define('HOST', 'localhost');
-define('DB_NAME', 'GStockB'); //définition de la database
+define('DB_NAME', 'GStockB');
 define('USER', 'root');
 define('PASS', '');
 

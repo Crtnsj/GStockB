@@ -2,19 +2,19 @@
 
 include '../API/pdo.php';
 global $db;
-session_start();
+
 try {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $email = htmlspecialchars($_POST['email']);
         $password = $_POST['password'];
 
-        $sql = "SELECT * FROM utilisateurs WHERE email_u = :email AND mot_de_passe = :password";
+        $sql = "SELECT * FROM utilisateurs WHERE email_u = :email";
         $stmt = $db->prepare($sql);
-        $stmt->execute(['email' => $email, 'password' => $password]);
+        $stmt->execute(['email' => $email]);
         $result = $stmt->fetch();
 
         if ($result) {
-            if ($password == $result['mot_de_passe']) {
+            if ($result && password_verify($password, $result['mot_de_passe'])) {
                 $_SESSION['id_u'] = $result["id_u"];
                 $_SESSION['email_u'] = $result['email_u'];
                 $_SESSION['lname'] = $result['nom_u'];

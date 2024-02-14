@@ -10,7 +10,7 @@ echo $_SESSION["id_u"];
     <nav>
         <ul>
             <li>
-                <a href="v_stock.php">Voir les stocks</a>
+                <a href="./vues/v_stock.php">Voir les stocks</a>
             </li>
         </ul>
     </nav>

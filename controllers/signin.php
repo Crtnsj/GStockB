@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include "../api/pdo.php";
 $db = new Database();
 

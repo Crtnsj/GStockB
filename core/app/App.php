@@ -9,4 +9,7 @@ switch ($uc) {
     case "home":
         include("vues/v_home.php");
         break;
+    case "stock":
+        include("./controllers/stockController.php");
+        break;
 }

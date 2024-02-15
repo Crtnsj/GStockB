@@ -1,7 +1,6 @@
 <?php
-include "../api/pdo.php";
+include("./core/database/pdo.php");
 $db = new Database();
-
 class Stock
 {
     function getStocks()

@@ -1,8 +1,4 @@
 <?php
-include "../controllers/stock.php";
-
-$stockAccess = new Stock();
-$id = null;
 
 if (isset($_GET["id_st"])) {
     $id = htmlspecialchars($_GET["id_st"]);
@@ -10,7 +6,7 @@ if (isset($_GET["id_st"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stockAccess->deleteStock($id);
-    header("location: ./v_stock.php");
+    header("location: index.php?uc=stock&action=view");
 }
 ?>
 <div>

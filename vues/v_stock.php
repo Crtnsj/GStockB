@@ -4,7 +4,30 @@ $stockAccess = new Stock();
 
 $stocks = $stockAccess->getStocks();
 
-foreach ($stocks as $stock) {
-    echo $stock->nom_st;
-}
-echo '<a href="./v_createStock.php">créer un stock</a>';
+?>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($stocks as $stock) { ?>
+                <tr>
+                    <td><a href="./v_updateStock.php?id_st=<?php echo $stock->id_st; ?>">modifier</a><?php echo $stock->id_st; ?></td>
+                    <td><?php echo $stock->nom_st; ?></td>
+                    <td><?php echo $stock->description_st; ?></td>
+                    <td><?php echo $stock->quantite_st; ?></td>
+                    <td><?php echo $stock->type_st; ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<a href="./v_createStock.php">Créer un stock</a>

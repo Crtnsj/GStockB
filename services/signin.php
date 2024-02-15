@@ -1,7 +1,8 @@
 <?php
 
-include "../api/pdo.php";
+include "../core/database/pdo.php";
 $db = new Database();
+
 
 try {
     if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -20,7 +21,8 @@ try {
                 $_SESSION['email_u'] = $user->email_u;
                 $_SESSION['lname'] = $user->nom_u;
                 $_SESSION['fname'] = $user->prenom_u;
-                header("location: ../vues/v_home.php");
+
+                header("location: ../index.php?uc=home");
                 exit();
             } else {
                 echo "Votre mot de passe est incorrect";

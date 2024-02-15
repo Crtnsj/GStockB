@@ -1,6 +1,6 @@
 <?php
 
-include "../api/pdo.php";
+include "../core/database/pdo.php";
 $db = new Database();
 
 try {
@@ -19,6 +19,7 @@ try {
         $db->bind(':email', $email);
         $db->bind(':hash', $hash);
         $db->execute();
+        header("location: ../vues/v_home.php");
     } else {
         echo "tous les champs ne sont pas remplit";
     }

@@ -11,6 +11,7 @@ echo $_SESSION["id_u"];
         <ul>
             <li>
                 <a href="./vues/v_stock.php">Voir les stocks</a>
+                <a href="index.php?uc=login&action=disconnect">se deconnecter</a>
             </li>
         </ul>
     </nav>

@@ -19,7 +19,11 @@ $stocks = $stockAccess->getStocks();
         <tbody>
             <?php foreach ($stocks as $stock) { ?>
                 <tr>
-                    <td><a href="./v_updateStock.php?id_st=<?php echo $stock->id_st; ?>">modifier</a><?php echo $stock->id_st; ?></td>
+                    <td>
+                        <a href="./v_updateStock.php?id_st=<?php echo $stock->id_st; ?>">modifier</a>
+                        <a href="./v_deleteStock.php?id_st=<?php echo $stock->id_st; ?>">supprimer</a>
+                        <?php echo $stock->id_st; ?>
+                    </td>
                     <td><?php echo $stock->nom_st; ?></td>
                     <td><?php echo $stock->description_st; ?></td>
                     <td><?php echo $stock->quantite_st; ?></td>

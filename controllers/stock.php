@@ -45,4 +45,12 @@ class Stock
         $result = $db->resultSet();
         return $result;
     }
+    function deleteStock($id_st)
+    {
+        global $db;
+        $sql = "DELETE FROM stocks WHERE `stocks`.`id_st` = :id_st";
+        $db->query($sql);
+        $db->bind(':id_st', $id_st);
+        $db->execute();
+    }
 }

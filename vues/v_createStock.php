@@ -4,12 +4,13 @@ include "../controllers/stock.php";
 $stockAccess = new Stock();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom_st = $_POST["nom_st"];
-    $description_st = $_POST["description_st"];
-    $quantite_st = $_POST["quantite_st"];
-    $type_st = $_POST["type_st"];
+    $nom_st = htmlspecialchars($_POST["nom_st"]);
+    $description_st = htmlspecialchars($_POST["description_st"]);
+    $quantite_st = htmlspecialchars($_POST["quantite_st"]);
+    $type_st = htmlspecialchars($_POST["type_st"]);
 
     $stockAccess->createStock($nom_st, $description_st, $quantite_st, $type_st);
+    header("location: ./v_stock.php");
 }
 
 ?>

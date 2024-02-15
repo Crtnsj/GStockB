@@ -21,11 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $type_st = htmlspecialchars($_POST["type_st"]);
 
         $stockAccess->updateStock($id, $nom_st, $description_st, $quantite_st, $type_st);
+        header("location: ./v_stock.php");
     }
 }
 ?>
 
 <div>
+
     <form action="" method="POST">
         <input type="text" name="nom_st" id="" value="<?php echo $stock->nom_st ?? ''; ?>">
         <input type="text" name="description_st" id="" value="<?php echo $stock->description_st ?? ''; ?>">

@@ -1,6 +1,5 @@
 <?php
-include("./core/database/pdo.php");
-$db = new Database();
+
 class Stock
 {
     function getStocks()
@@ -51,5 +50,22 @@ class Stock
         $db->query($sql);
         $db->bind(':id_st', $id_st);
         $db->execute();
+    }
+    function getStocksNames()
+    {
+        global $db;
+        $sql = "SELECT nom_st FROM stocks";
+        $db->query($sql);
+        $result = $db->resultSet();
+        return $result;
+    }
+    function translateNameToID($nom_st)
+    {
+        global $db;
+        $sql = "SELECT id_st FROM stocks WHERE `stocks`.`nom_st` = :nom_st";
+        $db->query($sql);
+        $db->bind(':nom_st', $nom_st);
+        $result = $db->resultSet();
+        return $result;
     }
 }

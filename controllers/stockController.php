@@ -1,6 +1,7 @@
 <?php
 $action = empty($_GET["action"]) ? "view" : $_GET["action"];
-
+include("../core/database/pdo.php");
+$db = new Database();
 include("./models/Stock.php");
 $stockAccess = new Stock();
 $stocks = $stockAccess->getStocks();

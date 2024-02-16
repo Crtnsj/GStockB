@@ -1,5 +1,6 @@
 <?php
-
+include("./core/database/pdo.php");
+$db = new Database();
 $uc = empty($_GET["uc"]) ? "login" : $_GET["uc"];
 
 switch ($uc) {

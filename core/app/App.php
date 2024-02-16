@@ -12,4 +12,7 @@ switch ($uc) {
     case "stock":
         include("./controllers/stockController.php");
         break;
+    case "order":
+        include("./controllers/orderController.php");
+        break;
 }

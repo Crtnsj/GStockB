@@ -1,7 +1,7 @@
 <?php
 $action = empty($_GET["action"]) ? "view" : $_GET["action"];
 
-include("./models/stock.php");
+include("./models/Stock.php");
 $stockAccess = new Stock();
 $stocks = $stockAccess->getStocks();
 $stock = null;
@@ -36,25 +36,16 @@ switch ($action) {
         include("vues/v_deleteStock.php");
         break;
     case "validForm":
+        $id = htmlspecialchars($_POST["id_st"]);
+        $nom_st = htmlspecialchars($_POST["nom_st"]);
+        $description_st = htmlspecialchars($_POST["description_st"]);
+        $quantite_st = htmlspecialchars($_POST["quantite_st"]);
+        $type_st = htmlspecialchars($_POST["type_st"]);
         if (empty($_POST["id_st"])) {
-            $nom_st = htmlspecialchars($_POST["nom_st"]);
-            $description_st = htmlspecialchars($_POST["description_st"]);
-            $quantite_st = htmlspecialchars($_POST["quantite_st"]);
-            $type_st = htmlspecialchars($_POST["type_st"]);
-
             $stockAccess->createStock($nom_st, $description_st, $quantite_st, $type_st);
-            header("location: index.php?uc=stock&action=view");
         } else {
-            if (isset($_POST["id_st"]) && isset($_POST["nom_st"]) && isset($_POST["description_st"]) && isset($_POST["quantite_st"]) && isset($_POST["type_st"])) {
-                $id = htmlspecialchars($_POST["id_st"]);
-                $nom_st = htmlspecialchars($_POST["nom_st"]);
-                $description_st = htmlspecialchars($_POST["description_st"]);
-                $quantite_st = htmlspecialchars($_POST["quantite_st"]);
-                $type_st = htmlspecialchars($_POST["type_st"]);
-                $stockAccess->updateStock($id, $nom_st, $description_st, $quantite_st, $type_st);
-                header("location: index.php?uc=stock&action=view");
-                exit;
-            }
+            $stockAccess->updateStock($id, $nom_st, $description_st, $quantite_st, $type_st);
         }
+        header("location: index.php?uc=stock&action=view");
         break;
 }

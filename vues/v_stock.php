@@ -28,3 +28,4 @@
 </div>
 
 <a href="./index.php?uc=stock&action=create">Créer un stock</a>
+<a href="./index.php?uc=home">Revenir à l'accueil</a>

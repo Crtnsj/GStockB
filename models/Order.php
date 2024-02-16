@@ -24,4 +24,12 @@ class Order
 
         $db->execute();
     }
+    function deleteOrder($id_co)
+    {
+        global $db;
+        $sql = "DELETE FROM commandes WHERE `commandes`.`id_co` = :id_co";
+        $db->query($sql);
+        $db->bind(':id_co', $id_co);
+        $db->execute();
+    }
 }

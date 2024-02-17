@@ -9,6 +9,7 @@ class Database
     private $statement;
     private $error;
 
+    // constructeur de la classe
     public function __construct()
     {
         // Set DSN
@@ -26,12 +27,12 @@ class Database
             echo $this->error;
         }
     }
-
+    //prepare la requete
     public function  query($sql)
     {
         return $this->statement = $this->dbHandler->prepare($sql);
     }
-
+    // definit les parametres de requete
     public function bind($parameter, $value, $type = null)
     {
         switch (is_null($type)) {
@@ -49,12 +50,12 @@ class Database
         }
         $this->statement->bindValue($parameter, $value, $type);
     }
-
+    //execute
     public function execute()
     {
         return $this->statement->execute();
     }
-
+    //execute et renvoie le resultat
     public function resultSet()
     {
         $this->execute();

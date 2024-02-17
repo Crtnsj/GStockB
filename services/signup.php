@@ -1,7 +1,7 @@
 <?php
 
-include "../core/database/pdo.php";
-$db = new Database();
+include "../models/User.php";
+$userAccess = new User();
 
 try {
     if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -12,13 +12,9 @@ try {
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO `utilisateurs` (`id_u`, `nom_u`, `prenom_u`, `email_u`, `mot_de_passe`, `id_role`) VALUES (NULL, :lname , :fname, :email, :hash, '2');";
-        $db->query($sql);
-        $db->bind(':lname', $lname);
-        $db->bind(':fname', $fname);
-        $db->bind(':email', $email);
-        $db->bind(':hash', $hash);
-        $db->execute();
+
+        $userAccess->createUser($fname, $lname, $email, $hash);
+
         header("location: ../vues/v_home.php");
     } else {
         echo "tous les champs ne sont pas remplit";

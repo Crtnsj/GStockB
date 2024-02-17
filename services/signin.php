@@ -1,7 +1,6 @@
 <?php
-
-include "../core/database/pdo.php";
-$db = new Database();
+include "../models/User.php";
+$userAccess = new User();
 
 
 try {
@@ -9,19 +8,12 @@ try {
         $email = htmlspecialchars($_POST['email']);
         $password = $_POST['password'];
 
-        $sql = "SELECT * FROM utilisateurs WHERE email_u = :email";
-        $db->query($sql);
-        $db->bind(':email', $email);
-        $result = $db->resultSet();
+        $result = $userAccess->getUserbyEmail($email);
 
         if ($result) {
             $user = $result[0];
             if (password_verify($password, $user->mot_de_passe)) {
                 $_SESSION['id_u'] = $user->id_u;
-                $_SESSION['email_u'] = $user->email_u;
-                $_SESSION['lname'] = $user->nom_u;
-                $_SESSION['fname'] = $user->prenom_u;
-
                 header("location: ../index.php?uc=home");
                 exit();
             } else {

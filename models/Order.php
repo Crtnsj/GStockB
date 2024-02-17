@@ -1,6 +1,8 @@
 <?php
+
 class Order
 {
+    //recupere la table commandes
     function getOrders()
     {
         global $db;
@@ -9,11 +11,11 @@ class Order
         $result = $db->resultSet();
         return $result;
     }
+    //creer une commande
     function createOrder($type_co, $date_co)
     {
         global $db;
         $id_u = 2;
-
         $sql = "INSERT INTO `commandes` (`id_co`, `date_co`, `statut_co`, `type_co`, `id_u`) VALUES (NULL, :date_co, 'en_attente', :type_co, :id_u);";
         $db->query($sql);
         $db->bind(':type_co', $type_co);
@@ -22,6 +24,7 @@ class Order
 
         $db->execute();
     }
+    //supprime une commande
     function deleteOrder($id_co)
     {
         global $db;
@@ -30,6 +33,7 @@ class Order
         $db->bind(':id_co', $id_co);
         $db->execute();
     }
+    //creer le detail de la commande
     function createOrderDetails($id_co, $id_st, $qte)
     {
         global $db;
@@ -40,6 +44,7 @@ class Order
         $db->bind(':qte', $qte);
         $db->execute();
     }
+    //trouve une commande grace a sa date de creation
     function getOrderByDate($date_co)
     {
         global $db;

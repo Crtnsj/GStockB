@@ -2,6 +2,7 @@
 
 class Stock
 {
+    //recupere les stocks
     function getStocks()
     {
         global $db;
@@ -10,7 +11,7 @@ class Stock
         $result = $db->resultSet();
         return $result;
     }
-
+    //creer un stock
     function createStock($nom_st, $description_st, $quantite_st, $type_st)
     {
         global $db;
@@ -22,6 +23,7 @@ class Stock
         $db->bind(':type_st', $type_st);
         $db->execute();
     }
+    //mets a jour un stock
     function updateStock($id_st, $nom_st, $description_st, $quantite_st, $type_st)
     {
         global $db;
@@ -34,6 +36,7 @@ class Stock
         $db->bind(':type_st', $type_st);
         $db->execute();
     }
+    //trouve et renvoie un stock grace a son id
     function getStockByID($id_st)
     {
         global $db;
@@ -43,6 +46,7 @@ class Stock
         $result = $db->resultSet();
         return $result;
     }
+    //supprime un stock
     function deleteStock($id_st)
     {
         global $db;
@@ -51,6 +55,7 @@ class Stock
         $db->bind(':id_st', $id_st);
         $db->execute();
     }
+    //ressort tous les noms des stocks
     function getStocksNames()
     {
         global $db;
@@ -59,6 +64,7 @@ class Stock
         $result = $db->resultSet();
         return $result;
     }
+    //traduit un nom de stock par son ID 
     function translateNameToID($nom_st)
     {
         global $db;

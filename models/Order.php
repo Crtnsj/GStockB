@@ -54,4 +54,13 @@ class Order
         $result = $db->resultSet();
         return $result;
     }
+    function getDetails($id_co)
+    {
+        global $db;
+        $sql = "SELECT * FROM details_commande WHERE id_co = :id_co;";
+        $db->query($sql);
+        $db->bind(':id_co', $id_co);
+        $result = $db->resultSet();
+        return $result;
+    }
 }

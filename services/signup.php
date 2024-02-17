@@ -15,7 +15,7 @@ try {
 
         $userAccess->createUser($fname, $lname, $email, $hash);
 
-        header("location: ../vues/v_home.php");
+        header("location: ../index.php?uc=home");
     } else {
         echo "tous les champs ne sont pas remplit";
     }

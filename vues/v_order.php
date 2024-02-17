@@ -13,7 +13,7 @@
             <?php foreach ($orders as $order) { ?>
                 <tr>
                     <td>
-                        <a href="./index.php?uc=order&action=update&id_co=<?php echo $order->id_co; ?>">modifier</a>
+                        <a href="./index.php?uc=order&action=viewDetails&id_co=<?php echo $order->id_co; ?>">voir les details</a>
                         <a href="./index.php?uc=order&action=delete&id_co=<?php echo $order->id_co; ?>">supprimer</a>
                         <?php echo $order->id_co; ?>
                     </td>

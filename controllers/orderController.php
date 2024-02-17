@@ -61,7 +61,6 @@ switch ($action) {
 
         break;
     case "delete":
-        echo "hello";
         if (isset($_GET["id_co"])) {
             $id = htmlspecialchars($_GET["id_co"]);
         }
@@ -70,5 +69,10 @@ switch ($action) {
             header("location: index.php?uc=order&action=view");
         }
         include("vues/v_deleteOrder.php");
+        break;
+    case "viewDetails":
+        $id_co = htmlspecialchars($_GET["id_co"]);
+        $orderDetails = $orderAccess->getDetails($id_co);
+        include("vues/v_viewDetails.php");
         break;
 }

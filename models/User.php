@@ -9,8 +9,6 @@ class User
     public $password;
     public $role;
 
-
-
     private $db;
 
     /**
@@ -23,7 +21,7 @@ class User
 
     function login($email, $password)
     {
-        $query = "SELECT `id_u`,`mot_de_passe` FROM utilisateurs WHERE email_u = :email";
+        $query = "SELECT `id_u`,`mot_de_passe`,`id_role` FROM utilisateurs WHERE email_u = :email";
         $this->db->query($query);
         $this->db->bind(':email', $email);
         $result = $this->db->resultSet();
@@ -31,10 +29,11 @@ class User
             $user = $result[0];
             if (password_verify($password, $user->mot_de_passe)) {
                 $_SESSION['id_u'] = $user->id_u;
-                header("location: ./index.php?uc=home");
-                exit();
+                $_SESSION['id_role'] = $user->id_role;
+
+                return true;
             } else {
-                $_SESSION["messageBox"] = "loginError";
+                return false;
             }
         } else {
             $_SESSION["messageBox"] = "loginError";

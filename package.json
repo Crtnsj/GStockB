@@ -1,8 +1,0 @@
-{
-  "scripts": {
-    "sass": "sass --watch ./styles/sass/main.scss:./styles/css-compiled.css --style compressed"
-  },
-  "devDependencies": {
-    "sass": "^1.70.0"
-  }
-}

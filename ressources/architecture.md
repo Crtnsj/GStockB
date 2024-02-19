@@ -1,0 +1,17 @@
+/GStockB
+    index.php
+    /Core
+        /App.php
+        /database.php
+    /Controllers
+        userController.php
+        orderController.php
+        stockController.php
+    /Models
+        User.php
+        Order.php
+        Stock.php
+    /Vues
+        /Order
+        /User
+        /Stock

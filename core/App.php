@@ -2,6 +2,7 @@
 require_once("./core/Database.php");
 require_once("./models/User.php");
 require_once("./models/Stock.php");
+require_once("./models/Order.php");
 
 //definition de $uc pour connaitre la page souhaitee
 $uc = empty($_GET["uc"]) ? "login" : $_GET["uc"];
@@ -14,13 +15,24 @@ switch ($uc) {
         if (isset($_SESSION["id_u"])) {
             include "./views/v_home.php";
         } else {
-            $_SESSION["messageBox"] = "loginError";
+            $_SESSION["messageBox"] = "loginError"; //todo : handle messages
         }
         break;
     case "user":
         include "./controllers/userController.php";
         break;
     case "stock":
-        include "./controllers/stockController.php";
+        if (isset($_SESSION["id_u"])) {
+            include "./controllers/stockController.php";
+        } else {
+            $_SESSION["messageBox"] = "loginError"; //todo : handle messages
+        }
+        break;
+    case "order":
+        if (isset($_SESSION["id_u"])) {
+            include "./controllers/orderController.php";
+        } else {
+            $_SESSION["messageBox"] = "loginError"; //todo : handle messages
+        }
         break;
 }

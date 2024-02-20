@@ -55,4 +55,25 @@ class Stock
         $this->db->bind(':type_st', $type_st);
         $this->db->execute();
     }
+    function getStocksNames()
+    {
+
+        $query = "SELECT nom_st FROM stocks";
+        $this->db->query($query);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    function translateNameToID($nom_st)
+    {
+        $query = "SELECT id_st FROM stocks WHERE `stocks`.`nom_st` = :nom_st";
+        $this->db->query($query);
+        $this->db->bind(':nom_st', $nom_st);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    function compareIdenticalStock($selectedStocks)
+    {
+        $uniqueStocks = array_unique($selectedStocks);
+        return count($uniqueStocks) !== count($selectedStocks);
+    }
 }

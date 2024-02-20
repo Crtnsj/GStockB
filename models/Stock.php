@@ -26,6 +26,16 @@ class Stock
         $result = $this->db->resultSet();
         return $result;
     }
+    function createStock($nom_st, $description_st, $quantite_st, $type_st)
+    {
+        $query = "INSERT INTO `stocks` (`id_st`, `nom_st`, `description_st`, `quantite_st`, `type_st`) VALUES (NULL, :nom_st, :description_st, :quantite_st, :type_st);";
+        $this->db->query($query);
+        $this->db->bind(':nom_st', $nom_st);
+        $this->db->bind(':description_st', $description_st);
+        $this->db->bind(':quantite_st', $quantite_st);
+        $this->db->bind(':type_st', $type_st);
+        $this->db->execute();
+    }
     //supprime un stock
     function deleteStock($id_st)
     {

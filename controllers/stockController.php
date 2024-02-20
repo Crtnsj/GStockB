@@ -23,7 +23,7 @@ switch ($action) {
         }
         break;
     case "validForm":
-        if (isset($_POST["delete"])) {
+        if (isset($_POST["delete"]) && isset($_POST["id_st"])) {
             try {
                 $stockDataAccess->deleteStock($_POST["id_st"]);
                 header("location: ./index.php?uc=stock&action=view");
@@ -31,6 +31,15 @@ switch ($action) {
                 $_SESSION['messageBox'] = "errorStock"; //todo : handle messages
                 echo "Le stock ne peut etre supprimer car il est concerné par des commandes";
             }
+        }
+        if (isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["quantite_st"], $_POST["type_st"])) {
+            $id_st = htmlspecialchars($_POST["id_st"]);
+            $nom_st = htmlspecialchars($_POST["nom_st"]);
+            $description_st = htmlspecialchars($_POST["description_st"]);
+            $quantite_st = htmlspecialchars($_POST["quantite_st"]);
+            $type_st = htmlspecialchars($_POST["type_st"]);
+            $stockDataAccess->updateStock($id_st, $nom_st, $description_st, $quantite_st, $type_st);
+            header("location: ./index.php?uc=stock&action=view");
         }
         break;
 }

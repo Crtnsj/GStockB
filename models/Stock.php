@@ -34,4 +34,15 @@ class Stock
         $this->db->bind(':id_st', $id_st);
         $this->db->execute();
     }
+    function updateStock($id_st, $nom_st, $description_st, $quantite_st, $type_st)
+    {
+        $query = "UPDATE `stocks` SET `nom_st` = :nom_st, `description_st` = :description_st, `quantite_st` = :quantite_st, `type_st` = :type_st WHERE `stocks`.`id_st` = :id_st";
+        $this->db->query($query);
+        $this->db->bind(':id_st', $id_st);
+        $this->db->bind(':nom_st', $nom_st);
+        $this->db->bind(':description_st', $description_st);
+        $this->db->bind(':quantite_st', $quantite_st);
+        $this->db->bind(':type_st', $type_st);
+        $this->db->execute();
+    }
 }

@@ -13,9 +13,25 @@ class Stock
     }
     function getStocks()
     {
-        $sql = "SELECT * FROM stocks";
-        $this->db->query($sql);
+        $query = "SELECT * FROM stocks";
+        $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
+    }
+    function getStockByID($id_st)
+    {
+        $query = "SELECT * FROM stocks WHERE id_st = :id_st";
+        $this->db->query($query);
+        $this->db->bind(':id_st', $id_st);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    //supprime un stock
+    function deleteStock($id_st)
+    {
+        $query = "DELETE FROM stocks WHERE `stocks`.`id_st` = :id_st";
+        $this->db->query($query);
+        $this->db->bind(':id_st', $id_st);
+        $this->db->execute();
     }
 }

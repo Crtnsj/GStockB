@@ -36,7 +36,7 @@ class User
                 return false;
             }
         } else {
-            $_SESSION["messageBox"] = "loginError";
+            $_SESSION["messageBox"] = "loginError"; //todo : handle messages
         }
     }
 }

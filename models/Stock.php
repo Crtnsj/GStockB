@@ -76,4 +76,32 @@ class Stock
         $uniqueStocks = array_unique($selectedStocks);
         return count($uniqueStocks) !== count($selectedStocks);
     }
+    function getQteOfStock($id_st)
+    {
+        $query = "SELECT quantite_st FROM stocks WHERE id_st = :id_st";
+        $this->db->query($query);
+        $this->db->bind(':id_st', $id_st);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    function updateQteOfStock($id_st, $quantite_st, $type_st)
+    {
+        if ($type_st == "entrée") {
+            $qteOfStock = $this->getQteOfStock($id_st);
+            $finalQte = $qteOfStock[0]->quantite_st + $quantite_st;
+            $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
+            $this->db->query($query);
+            $this->db->bind(':id_st', $id_st);
+            $this->db->bind(':quantite_st', $finalQte);
+            $this->db->execute();
+        } else {
+            $qteOfStock = $this->getQteOfStock($id_st);
+            $finalQte = $qteOfStock[0]->quantite_st - $quantite_st;
+            $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
+            $this->db->query($query);
+            $this->db->bind(':id_st', $id_st);
+            $this->db->bind(':quantite_st', $finalQte);
+            $this->db->execute();
+        }
+    }
 }

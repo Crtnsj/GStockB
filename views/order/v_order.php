@@ -7,6 +7,7 @@
                 <th>Statut</th>
                 <th>Type</th>
                 <th>Utilisateur</th>
+                <?php echo ($_SESSION['id_role'] == 1) ? "<th>Actions</th>" : ""; ?>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,9 @@
                     <td><?php echo $order->statut_co; ?></td>
                     <td><?php echo $order->type_co; ?></td>
                     <td><?php echo $order->id_u; ?></td>
+                    <?php echo ($_SESSION['id_role'] == 1) ?
+                        "<td><a href='./index.php?uc=order&action=validOrder&id_co=$order->id_co'>Valider</a>
+                    <a>Refuser</a> </td>" : ""; ?>
                 </tr>
             <?php } ?>
         </tbody>

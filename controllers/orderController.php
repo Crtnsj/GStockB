@@ -17,13 +17,25 @@ switch ($action) {
     case "validForm":
         $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]);
         $selectedStocks = array();
+
         for ($i = 1; $i <= $numberOfStocks; $i++) {
             $stock[$i] = htmlspecialchars($_POST["stock" . $i]);
             $selectedStocks[] = $stock[$i];
+
+            $qte[$i] = htmlspecialchars($_POST["qte" . $i]);
+            $translateID_st = $stockDataAccess->translateNameToID($stock[$i]);
+            $qteAvaible = $stockDataAccess->getQteOfStock($translateID_st[0]->id_st);
+            if (htmlspecialchars($_POST["type_co"]) == "sortie") {
+                if ($qte[$i] > $qteAvaible[0]->quantite_st) {
+                    $_SESSION['messageBox'] = "errorOrder"; //todo: handle message
+                    exit();
+                }
+            }
         }
+
         if (!$stockDataAccess->compareIdenticalStock($selectedStocks)) {
-            echo "hello";
             //Tous les stocks sont uniques, continuer le processus ici
+            $actualDate = date('Y-m-d H:i:s');
             $orderDataAccess->createOrder(htmlspecialchars($_POST["type_co"]), $actualDate, $_SESSION["id_u"]);
             $targetedOrder = $orderDataAccess->getOrderByDate($actualDate, $_SESSION["id_u"]);
             for ($i = 1; $i <= $numberOfStocks; $i++) {
@@ -33,6 +45,7 @@ switch ($action) {
                 $qte[$i] = htmlspecialchars($_POST["qte" . $i]);
                 // //traduit le nom du stock par son id
                 $translateID_st = $stockDataAccess->translateNameToID($stock[$i]);
+
                 //creer un details de la commande
                 $orderDataAccess->createOrderDetails($targetedOrder[0]->id_co, $translateID_st[0]->id_st, $qte[$i]);
             }
@@ -41,5 +54,16 @@ switch ($action) {
             $_SESSION['messageBox'] = "errorOrder"; //todo : handle messages
         }
 
+        break;
+    case "validOrder":
+        if ($_SESSION['id_role'] == 1) {
+            $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
+            $type_co = $orderDataAccess->getTypeCo(htmlspecialchars($_GET["id_co"]));
+            for ($i = 0; $i < count($orderDetails); $i++) {
+                $stockDataAccess->updateQteOfStock($orderDetails[$i]->id_st, $orderDetails[$i]->quantite_details, $type_co[0]->type_co);
+            }
+            $orderDataAccess->validOrder(htmlspecialchars($_GET["id_co"]));
+            header("location: index.php?uc=order&action=view");
+        };
         break;
 }

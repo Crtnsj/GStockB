@@ -45,4 +45,27 @@ class Order
         $this->db->bind(':qte', $qte);
         $this->db->execute();
     }
+    function validOrder($id_co)
+    {
+        $query = "UPDATE commandes SET statut_co = 'validee' WHERE id_co = :id_co";
+        $this->db->query($query);
+        $this->db->bind('id_co', $id_co);
+        $this->db->execute();
+    }
+    function getOrdersDetails($id_co)
+    {
+        $query = "SELECT id_st, quantite_details FROM details_commande WHERE id_co = :id_co ;";
+        $this->db->query($query);
+        $this->db->bind(':id_co', $id_co);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    function getTypeCo($id_co)
+    {
+        $query = "SELECT type_co FROM commandes WHERE id_co = :id_co ;";
+        $this->db->query($query);
+        $this->db->bind(':id_co', $id_co);
+        $result = $this->db->resultSet();
+        return $result;
+    }
 }

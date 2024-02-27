@@ -34,7 +34,7 @@ class Order
         $this->db->bind(':date_co', $date_co);
         $this->db->bind(':id_u', $id_u);
         $result = $this->db->resultSet();
-        return $result;
+        return $result[0]->id_co;
     }
     function createOrderDetails($id_co, $id_st, $qte)
     {
@@ -66,6 +66,6 @@ class Order
         $this->db->query($query);
         $this->db->bind(':id_co', $id_co);
         $result = $this->db->resultSet();
-        return $result;
+        return $result[0]->type_co;
     }
 }

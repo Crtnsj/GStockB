@@ -6,9 +6,18 @@ $action = $_GET["action"];
 
 switch ($action) {
     case "view":
-        $stocks = $stockDataAccess->getStocks();
-        include "./views/stock/v_stock.php";
-        break;
+        if (empty($_GET["filter"])) {
+            $stocks = $stockDataAccess->handleFilter("id_st-ASC");
+            include "./views/stock/v_stock.php";
+            break;
+        } else {
+            $filter = $_GET["filter"];
+
+            $stocks = $stockDataAccess->handleFilter($filter);
+            $column = explode("-", $filter)[0];
+            $order = explode("-", $filter)[1];
+            include "./views/stock/v_stock.php";
+        }
     case "update":
         if (isset($_GET["id_st"])) {
             $id = htmlspecialchars($_GET["id_st"]);
@@ -34,14 +43,18 @@ switch ($action) {
                 $_SESSION['messageBox'] = "errorStock"; //todo : handle messages
                 echo "Le stock ne peut etre supprimer car il est concerné par des commandes";
             }
-        } elseif (isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["quantite_st"], $_POST["type_st"])) {
+        } elseif (isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["type_st"])) {
             $id_st = htmlspecialchars($_POST["id_st"]);
             $nom_st = htmlspecialchars($_POST["nom_st"]);
             $description_st = htmlspecialchars($_POST["description_st"]);
-            $quantite_st = htmlspecialchars($_POST["quantite_st"]);
             $type_st = htmlspecialchars($_POST["type_st"]);
-            $stockDataAccess->updateStock($id_st, $nom_st, $description_st, $quantite_st, $type_st);
-            header("location: ./index.php?uc=stock&action=view");
+            try {
+                $stockDataAccess->updateStock($id_st, $nom_st, $description_st, $type_st);
+            } catch (Exception $e) {
+                echo $e;
+            }
+
+            // header("location: ./index.php?uc=stock&action=view");
         } elseif (!isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["quantite_st"], $_POST["type_st"])) {
             $nom_st = htmlspecialchars($_POST["nom_st"]);
             $description_st = htmlspecialchars($_POST["description_st"]);

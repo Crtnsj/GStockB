@@ -1,0 +1,48 @@
+.login {
+  &Page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../pics/login_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &Box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2rem;
+    min-height: 70vh;
+    min-width: 70vw;
+  }
+  &Illu {
+    width: 50%;
+    border-radius: 2rem;
+    margin: 2rem 2rem 2rem;
+    background-color: #ededed;
+    padding: 1rem;
+    &--illu {
+      background-position: center;
+      background-size: cover;
+      background-image: url("../pics/login_illu.png");
+      aspect-ratio: 200/239;
+      width: 100%;
+    }
+  }
+  &Form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    &--form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 10rem;
+    }
+  }
+}

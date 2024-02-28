@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+input[type="password"],
+input[type="email"],
+input[type="submit"] {
+  height: 2rem;
+  border-radius: 5rem;
+  border: solid 1px #ededed;
+  padding: 5px;
+}

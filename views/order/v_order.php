@@ -23,13 +23,12 @@
                     <td><?php echo $order->type_co; ?></td>
                     <td><?php echo $order->id_u; ?></td>
                     <?php echo ($_SESSION['id_role'] == 1) ?
-                        "<td><a href='./index.php?uc=order&action=validOrder&id_co=$order->id_co'>Valider</a>
-                    <a>Refuser</a> </td>" : ""; ?>
+                        "<td><a><i class='ti ti-shopping-cart-x' style='color:#E41B50;'></i></a><a href='./index.php?uc=order&action=validOrder&id_co=$order->id_co'><i class='ti ti-shopping-cart-check' style='color:#50BE0E;'></i></a>
+                     </td>" : ""; ?>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
 </div>
-
 <a href="./index.php?uc=order&action=create">Créer une commande</a>
 <a href="./index.php?uc=home">Revenir à l'accueil</a>

@@ -1,5 +1,9 @@
 .login {
   &Page {
+    position: absolute;
+    top: 0;
+    left: -14rem;
+    z-index: 2;
     width: 100vw;
     height: 100vh;
     display: flex;

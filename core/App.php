@@ -13,6 +13,7 @@ switch ($uc) {
         break;
     case "home":
         if (isset($_SESSION["id_u"])) {
+            include "./views/v_navBar.php";
             include "./views/v_home.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages
@@ -23,6 +24,7 @@ switch ($uc) {
         break;
     case "stock":
         if (isset($_SESSION["id_u"])) {
+            include "./views/v_navBar.php";
             include "./controllers/stockController.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages
@@ -30,6 +32,7 @@ switch ($uc) {
         break;
     case "order":
         if (isset($_SESSION["id_u"])) {
+            include "./views/v_navBar.php";
             include "./controllers/orderController.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages

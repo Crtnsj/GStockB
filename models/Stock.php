@@ -87,6 +87,14 @@ class Stock
         $result = $this->db->resultSet();
         return $result[0]->id_st;
     }
+    function translateIDToName($id_st)
+    {
+        $query = "SELECT nom_st FROM stocks WHERE `stocks`.`id_st` = :id_st";
+        $this->db->query($query);
+        $this->db->bind(':id_st', $id_st);
+        $result = $this->db->resultSet();
+        return $result[0]->nom_st;
+    }
     function compareIdenticalStock($selectedStocks)
     {
         $uniqueStocks = array_unique($selectedStocks);

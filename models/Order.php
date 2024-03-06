@@ -54,11 +54,19 @@ class Order
     }
     function getOrdersDetails($id_co)
     {
-        $query = "SELECT id_st, quantite_details FROM details_commande WHERE id_co = :id_co ;";
+        $query = "SELECT id_st, quantite_details FROM details_commande WHERE id_co = :id_co;";
         $this->db->query($query);
         $this->db->bind(':id_co', $id_co);
         $result = $this->db->resultSet();
-        return $result;
+        $orderDetails = [];
+        $stockDataAccess = new Stock();
+        for ($i = 0; $i < count($result); $i++) {
+            $orderDetail = new stdClass();
+            $orderDetail->nom_st = $stockDataAccess->translateIDToName($result[$i]->id_st);
+            $orderDetail->quantite_details = $result[$i]->quantite_details;
+            $orderDetails[] = $orderDetail;
+        }
+        return $orderDetails;
     }
     function getTypeCo($id_co)
     {

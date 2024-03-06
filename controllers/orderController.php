@@ -14,6 +14,10 @@ switch ($action) {
         $stocks = $stockDataAccess->getStocksNames();
         include "./views/order/v_createOrder.php";
         break;
+    case "viewDetails":
+        $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
+        include "./views/order/v_orderDetails.php";
+        break;
     case "validForm":
         $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]);
         $selectedStocks = array();

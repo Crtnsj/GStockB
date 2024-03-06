@@ -11,9 +11,22 @@ class Order
     {
         $this->db = new Database();
     }
-    function getOrders()
+    function getOrders($column, $order = 'ASC')
     {
-        $query = "SELECT * FROM commandes";
+        $validColumns = ['id_co', 'date_co', 'statut_co', 'type_co', 'id_u'];
+
+        // Vérification de la colonne valide
+        if (!in_array($column, $validColumns)) {
+            $_SESSION['messageBox'] = "errorStock";
+        }
+
+        // Vérification de l'ordre valide
+        $order = strtoupper($order);
+        if ($order !== 'ASC' && $order !== 'DESC') {
+            $_SESSION['messageBox'] = "errorStock";
+        }
+
+        $query = "SELECT * FROM commandes ORDER BY $column $order";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
@@ -75,5 +88,12 @@ class Order
         $this->db->bind(':id_co', $id_co);
         $result = $this->db->resultSet();
         return $result[0]->type_co;
+    }
+    function handleFilter($filter)
+    {
+        $whatWanted = explode("-", $filter);
+        $orders = $this->getOrders($whatWanted[0], $whatWanted[1]);
+
+        return $orders;
     }
 }

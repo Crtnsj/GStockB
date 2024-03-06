@@ -7,6 +7,9 @@
     border-bottom: 1px solid #ededed;
     word-wrap: break-all;
     text-align: left;
+    &:first-child {
+      padding-left: 4px;
+    }
   }
   td:first-child {
     padding-left: 4px;

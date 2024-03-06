@@ -7,8 +7,18 @@ $action = $_GET["action"];
 
 switch ($action) {
     case "view":
-        $orders = $orderDataAccess->getOrders();
-        include "./views/order/v_order.php";
+        if (empty($_GET["filter"])) {
+            $orders = $orderDataAccess->handleFilter("id_co-ASC");
+            include "./views/order/v_order.php";
+            break;
+        } else {
+            $filter = $_GET["filter"];
+
+            $orders = $orderDataAccess->handleFilter($filter);
+            $column = explode("-", $filter)[0];
+            $order = explode("-", $filter)[1];
+            include "./views/order/v_order.php";
+        }
         break;
     case "create":
         $stocks = $stockDataAccess->getStocksNames();

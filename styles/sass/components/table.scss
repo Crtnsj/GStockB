@@ -1,9 +1,10 @@
 .table {
-  width: 80vw;
+  width: 70vw;
   padding: 1rem;
   border-collapse: collapse;
+  margin-top: 1rem;
   & th {
-    background-color: darken(#ededed, 10);
+    border-bottom: 1px solid #ededed;
     word-wrap: break-all;
     text-align: left;
   }
@@ -29,8 +30,14 @@
   & td {
     border: none;
     height: 2rem;
+    & .ti {
+      font-size: 1.5rem;
+    }
     & .ti-trash-x {
       color: #e41b50;
+    }
+    & .ti-edit {
+      color: darken(#c6cfe2, 20);
     }
   }
 }

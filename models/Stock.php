@@ -11,7 +11,7 @@ class Stock
     {
         $this->db = new Database();
     }
-    function getStocks($column, $order = 'ASC')
+    function getStocks($column, $order)
     {
         $validColumns = ['id_st', 'nom_st', 'description_st', 'quantite_st', 'type_st'];
 

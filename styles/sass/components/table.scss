@@ -36,11 +36,15 @@
     & .ti {
       font-size: 1.5rem;
     }
-    & .ti-trash-x {
+    & .ti-trash-x,
+    .ti-shopping-cart-x {
       color: #e41b50;
     }
     & .ti-edit {
       color: darken(#c6cfe2, 20);
+    }
+    & .ti-shopping-cart-check {
+      color: #50be0e;
     }
   }
 }

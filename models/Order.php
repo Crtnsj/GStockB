@@ -11,7 +11,7 @@ class Order
     {
         $this->db = new Database();
     }
-    function getOrders($column, $order = 'ASC')
+    function getOrders($column, $order)
     {
         $validColumns = ['id_co', 'date_co', 'statut_co', 'type_co', 'id_u'];
 

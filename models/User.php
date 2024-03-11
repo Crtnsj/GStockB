@@ -67,4 +67,12 @@ class User
         $users = $this->getUsers($whatWanted[0], $whatWanted[1]);
         return $users;
     }
+    function getNumberOfUser()
+    {
+        $query = "SELECT id_u FROM utilisateurs";
+        $this->db->query($query);
+        $queryResult = $this->db->resultSet();
+        $result = count($queryResult);
+        return $result;
+    }
 }

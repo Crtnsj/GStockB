@@ -6,6 +6,7 @@ require_once("./models/Order.php");
 
 $orderDataAccess = new Order();
 $stockDataAccess = new Stock();
+$userDataAccess = new User();
 
 //definition de $uc pour connaitre la page souhaitee
 $uc = empty($_GET["uc"]) ? "login" : $_GET["uc"];
@@ -18,6 +19,11 @@ switch ($uc) {
         if (isset($_SESSION["id_u"])) {
             include "./views/v_navBar.php";
             $numberOfOrderInValidation = $orderDataAccess->getNumberOfOrderValidation();
+            $numberOfOrder = $orderDataAccess->getNumberOfOrder();
+            $numberOfStock = $stockDataAccess->getNumberOfStock();
+            $numberOfUser = $userDataAccess->getNumberOfUser();
+            $popularStocks = $stockDataAccess->getPopularStocks();
+            $lowStocks = $stockDataAccess->getLowStocks();
             include "./views/v_home.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages

@@ -139,4 +139,26 @@ class Stock
 
         return $stocks;
     }
+    function getNumberOfStock()
+    {
+        $query = "SELECT id_st FROM stocks";
+        $this->db->query($query);
+        $queryResult = $this->db->resultSet();
+        $result = count($queryResult);
+        return $result;
+    }
+    function getPopularStocks()
+    {
+        $query = "SELECT id_st, COUNT(id_st) AS count FROM details_commande GROUP BY id_st ORDER BY count DESC LIMIT 5";
+        $this->db->query($query);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+    function getLowStocks()
+    {
+        $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT 10";
+        $this->db->query($query);
+        $result = $this->db->resultSet();
+        return $result;
+    }
 }

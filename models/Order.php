@@ -104,4 +104,12 @@ class Order
         $result = count($queryResult);
         return $result;
     }
+    function getNumberOfOrder()
+    {
+        $query = "SELECT id_co FROM commandes";
+        $this->db->query($query);
+        $queryResult = $this->db->resultSet();
+        $result = count($queryResult);
+        return $result;
+    }
 }

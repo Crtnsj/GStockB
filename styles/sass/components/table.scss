@@ -37,10 +37,12 @@
       font-size: 1.5rem;
     }
     & .ti-trash-x,
-    .ti-shopping-cart-x {
+    .ti-shopping-cart-x,
+    .ti-user-off {
       color: #e41b50;
     }
-    & .ti-edit {
+    & .ti-edit,
+    .ti-user-edit {
       color: darken(#c6cfe2, 20);
     }
     & .ti-shopping-cart-check {

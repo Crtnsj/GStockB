@@ -1,4 +1,4 @@
-<a href="./index.php?uc=order&action=create" class="btnAdd "><i class="ti ti-shopping-cart-plus"></i>Créer un utilisateur</a>
+<a href="./index.php?uc=order&action=create" class="btnAdd "><i class="ti ti-user-plus"></i>Créer un utilisateur</a>
 <table class="table">
     <thead>
         <tr>
@@ -18,9 +18,10 @@
                 <td><?php echo $user->prenom_u; ?></td>
                 <td><?php echo $user->email_u; ?></td>
                 <td><?php echo $user->id_role; ?></td>
-                <?php echo ($_SESSION['id_role'] <= 2) ?
-                    "<td><a><i class='ti ti-shopping-cart-x'></i></a><a href='./index.php?uc=order&action=validOrder&id_co=$user->id_u'><i class='ti ti-shopping-cart-check'></i></a>
-                    <a href='./index.php?uc=order&action=viewDetails&id_co=$user->id_u'>voir les details</a></td>" : "<td><a href='./index.php?uc=order&action=viewDetails&id_co=$user->id_u'>voir les details</a></td>"; ?>
+                <td>
+                    <a><i class='ti ti-user-edit'></i></a>
+                    <a><i class='ti ti-user-off'></i></a>
+                </td>
             </tr>
         <?php } ?>
     </tbody>

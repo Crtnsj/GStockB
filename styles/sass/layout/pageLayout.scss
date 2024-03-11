@@ -29,6 +29,14 @@
         font-size: 2rem;
       }
     }
+    & a.nav__logo {
+      &:hover {
+        background-color: unset;
+      }
+      & img {
+        width: 10rem;
+      }
+    }
   }
 }
 .content {

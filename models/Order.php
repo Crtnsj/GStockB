@@ -96,4 +96,12 @@ class Order
 
         return $orders;
     }
+    function getNumberOfOrderValidation()
+    {
+        $query = "SELECT id_co FROM commandes WHERE statut_co = 'en_attente';";
+        $this->db->query($query);
+        $queryResult = $this->db->resultSet();
+        $result = count($queryResult);
+        return $result;
+    }
 }

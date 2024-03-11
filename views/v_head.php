@@ -14,18 +14,19 @@
 </head>
 
 <body>
-
-    <div class="navBar">
-        <nav>
-            <ul>
-                <img src="./pics/Logo_GStockB.png" alt="">
-                <li>
-                    <a href="./index.php?uc=stock&action=view"> <i class="ti ti-package"></i>Voir les stocks</a>
-                </li>
-                <li><a href="./index.php?uc=order&action=view"><i class="ti ti-shopping-cart"></i>Voir les commandes</a></li>
-                <?php echo ($_SESSION["id_role"] == 1 ? "<li><a href='./index.php?uc=user&action=view'><i class='ti ti-user-cog'></i>Gérer les utilisateurs</a></li>" : "") ?>
-                <li><a href="./index.php?uc=user&action=disconnect"><i class="ti ti-logout"></i>Se deconnecter</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="content">
+    <?php if (isset($_GET["uc"])) : ?>
+        <div class="navBar">
+            <nav>
+                <ul>
+                    <a href="./index.php?uc=home" class="nav__logo"><img src="./pics/Logo_GStockB.png" alt=""></img></a>
+                    <li><a href="./index.php?uc=stock&action=view"><i class="ti ti-package"></i>Voir les stocks</a></li>
+                    <li><a href="./index.php?uc=order&action=view"><i class="ti ti-shopping-cart"></i>Voir les commandes</a></li>
+                    <?php if ($_SESSION["id_role"] == 1) : ?>
+                        <li><a href='./index.php?uc=user&action=view'><i class='ti ti-user-cog'></i>Gérer les utilisateurs</a></li>
+                    <?php endif; ?>
+                    <li><a href="./index.php?uc=user&action=disconnect"><i class="ti ti-logout"></i>Se déconnecter</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="content">
+        <?php endif; ?>

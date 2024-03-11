@@ -1,7 +1,7 @@
 <div class="dashboard">
     <div>Liste des stocks les plus faibles
         <table>
-            <thead class="table">
+            <thead>
                 <tr>
                     <th>Stock</th>
                     <th>quantite</th>
@@ -17,16 +17,40 @@
             </tbody>
         </table>
     </div>
-    <div>Dernieres commandes</div>
+    <div>Dernieres commandes
+        <table>
+            <thead>
+                <tr>
+                    <th>Commande</th>
+                    <th>Date de commande</th>
+                    <th>Commande</th>
+                    <th>Date de commande</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php for ($i = 0; $i < count($lastOrders); $i++) {
+                    if ($i < 5) { ?>
+                        <tr>
+
+                            <td><?php echo $lastOrders[$i]->id_co ?></td>
+                            <td><?php echo $lastOrders[$i]->date_co ?></td>
+                            <td><?php echo $lastOrders[$i + 5]->id_co ?></td>
+                            <td><?php echo $lastOrders[$i + 5]->date_co ?></td>
+                        </tr>
+                <?php }
+                } ?>
+            </tbody>
+        </table>
+    </div>
     <div>Nombre de commandes en attentes de validations
-        <?php echo $numberOfOrderInValidation ?>
+        <p><?php echo $numberOfOrderInValidation ?></p>
     </div>
     <div>Nombres de commandes réalisés
-        <?php echo $numberOfOrder ?>
+        <p><?php echo $numberOfOrder ?></p>
     </div>
     <div>Stocks les plus populaires
         <table>
-            <thead class="table">
+            <thead>
                 <tr>
                     <th>Stock</th>
                     <th>Nombre de commandes</th>
@@ -43,10 +67,33 @@
         </table>
     </div>
     <div>Nombre total de stocks
-        <?php echo $numberOfStock ?>
+        <p><?php echo $numberOfStock ?></p>
     </div>
     <div>Nombre d'utilisateurs
-        <?php echo $numberOfUser ?>
+        <p><?php echo $numberOfUser ?></p>
     </div>
-    <div>Liste des commandes</div>
+    <div>Liste des commandes
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date </th>
+                    <th>Statut</th>
+                    <th>Type </th>
+                    <th>Utilisateur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($orderList as $order) { ?>
+                    <tr>
+                        <td><?php echo $order->id_co; ?></td>
+                        <td><?php echo $order->date_co; ?></td>
+                        <td><?php echo $order->statut_co; ?></td>
+                        <td><?php echo $order->type_co; ?></td>
+                        <td><?php echo $order->id_u; ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
 </div>

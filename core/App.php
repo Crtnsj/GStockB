@@ -24,6 +24,8 @@ switch ($uc) {
             $numberOfUser = $userDataAccess->getNumberOfUser();
             $popularStocks = $stockDataAccess->getPopularStocks();
             $lowStocks = $stockDataAccess->getLowStocks();
+            $lastOrders = $orderDataAccess->getLastOrders();
+            $orderList = $orderDataAccess->handleFilter("id_co-ASC");
             include "./views/v_home.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages

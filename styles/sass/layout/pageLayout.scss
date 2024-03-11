@@ -4,7 +4,7 @@
   width: 14rem;
   padding: 10px;
   & nav {
-    background-color: #ededed;
+    background-color: $gray;
     height: 100%;
     border-radius: 2rem;
     padding: 1rem;
@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       &:hover {
-        background-color: darken(#ededed, 10);
+        background-color: darken($gray, 10);
       }
       padding: 0.5rem;
       border-radius: 0.5rem;

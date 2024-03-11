@@ -112,4 +112,11 @@ class Order
         $result = count($queryResult);
         return $result;
     }
+    function getLastOrders()
+    {
+        $query = "SELECT id_co, date_co FROM commandes ORDER BY date_co ASC LIMIT 10";
+        $this->db->query($query);
+        $result = $this->db->resultSet();
+        return $result;
+    }
 }

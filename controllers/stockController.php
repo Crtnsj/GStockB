@@ -12,7 +12,6 @@ switch ($action) {
             break;
         } else {
             $filter = $_GET["filter"];
-
             $stocks = $stockDataAccess->handleFilter($filter);
             $column = explode("-", $filter)[0];
             $order = explode("-", $filter)[1];

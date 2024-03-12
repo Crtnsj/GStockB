@@ -49,6 +49,20 @@
       color: #50be0e;
     }
   }
+  &.table--dashboard {
+    width: 90%;
+    & th {
+      border-bottom: 1px solid darken($gray, 30);
+    }
+    & tr {
+      padding: 1rem;
+      &:hover {
+        outline: unset;
+        border-radius: 0;
+        background-color: unset;
+      }
+    }
+  }
 }
 .btnAdd {
   display: flex;

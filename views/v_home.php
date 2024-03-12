@@ -1,9 +1,14 @@
 <div class="dashboard">
-    <div>Liste des stocks les plus faibles
-        <table>
+    <a>
+        Liste des stocks les plus faibles
+        <table class="table table--dashboard">
+
+            <a href="./index.php?uc=order&action=create">commander</a>
+
             <thead>
                 <tr>
-                    <th>Stock</th>
+                    <th>#</th>
+                    <th>Nom</th>
                     <th>quantite</th>
                 </tr>
             </thead>
@@ -11,14 +16,15 @@
                 <?php foreach ($lowStocks as $stock) { ?>
                     <tr>
                         <td><?php echo $stock->id_st ?></td>
+                        <td><?php echo $stockDataAccess->translateIDToName($stock->id_st) ?></td>
                         <td><?php echo $stock->quantite_st ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
-    </div>
-    <div>Dernieres commandes
-        <table>
+    </a>
+    <a>Dernieres commandes
+        <table class="table table--dashboard">
             <thead>
                 <tr>
                     <th>Commande</th>
@@ -41,15 +47,22 @@
                 } ?>
             </tbody>
         </table>
-    </div>
-    <div>Nombre de commandes en attentes de validations
-        <p><?php echo $numberOfOrderInValidation ?></p>
-    </div>
-    <div>Nombres de commandes réalisés
-        <p><?php echo $numberOfOrder ?></p>
-    </div>
-    <div>Stocks les plus populaires
-        <table>
+    </a>
+    <a href=" index.php?uc=order&action=view&filter=statut_co-ASC">
+        <p class="dashboard__number"><?php echo $numberOfOrderInValidation ?></p>
+        <div> <i class="ti ti-checkup-list"></i>
+            <p>Commandes en attente de validation</p>
+        </div>
+
+    </a>
+    <a href="index.php?uc=order&action=view&filter=id_co-ASC">
+        <p class=" dashboard__number"><?php echo $numberOfOrder ?></p>
+        <div> <i class="ti ti-number"></i>
+            <p>Nombres de commandes réalisés</p>
+        </div>
+    </a>
+    <a>Stocks les plus populaires
+        <table class="table table--dashboard">
             <thead>
                 <tr>
                     <th>Stock</th>
@@ -65,15 +78,21 @@
                 <?php } ?>
             </tbody>
         </table>
-    </div>
-    <div>Nombre total de stocks
-        <p><?php echo $numberOfStock ?></p>
-    </div>
-    <div>Nombre d'utilisateurs
-        <p><?php echo $numberOfUser ?></p>
-    </div>
-    <div>Liste des commandes
-        <table>
+    </a>
+    <a href="index.php?uc=stock&action=view&filter=id_st-ASC">
+        <p class="dashboard__number"><?php echo $numberOfStock ?></p>
+        <div> <i class="ti ti-number"></i>
+            <p>Nombre total de stocks</p>
+        </div>
+    </a>
+    <a <?php echo $_SESSION["id_role"] == 1 ? "href='./index.php?uc=user&action=view'" : ""; ?>>
+        <p class="dashboard__number"><?php echo $numberOfUser ?></p>
+        <div> <i class="ti ti-users-group"></i>
+            <p>Nombre d'utilisateurs</p>
+        </div>
+    </a>
+    <a>Liste des commandes
+        <table class="table table--dashboard">
             <thead>
                 <tr>
                     <th>#</th>
@@ -95,5 +114,5 @@
                 <?php } ?>
             </tbody>
         </table>
-    </div>
+    </a>
 </div>

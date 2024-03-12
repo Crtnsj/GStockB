@@ -5,20 +5,35 @@
   width: 75vw;
   aspect-ratio: 1/1;
   grid-gap: 1rem;
-  & div {
+  margin-left: 1rem;
+  & > a {
+    display: block;
     border-radius: 2rem;
-  }
-  & > div {
     padding: 1rem;
     position: relative;
-    & p {
+    & .dashboard__number {
       position: absolute;
-      top: 50%;
-      left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 7vw;
-      font-weight: 800;
     }
+    & .dashboard__number {
+      top: 55%;
+      left: 50%;
+      font-size: 9vw;
+      font-weight: 800;
+      color: #000;
+    }
+    & > div {
+      display: flex;
+      align-items: center;
+      height: 20%;
+      & i {
+        font-size: 4vw;
+      }
+      & p {
+        font-size: 1vw;
+      }
+    }
+
     &:nth-child(1) {
       background-color: $gray;
       grid-column: 1/3;
@@ -31,9 +46,21 @@
     }
     &:nth-child(3) {
       background-color: $blue1;
+      & > div {
+        & i,
+        p {
+          color: darken($blue4, 10);
+        }
+      }
     }
     &:nth-child(4) {
       background-color: $blue3;
+      & > div {
+        & i,
+        p {
+          color: darken($blue4, 30);
+        }
+      }
     }
     &:nth-child(5) {
       background-color: $blue2;
@@ -42,15 +69,32 @@
     }
     &:nth-child(6) {
       background-color: darken($gray, 10);
+      & > div {
+        & i,
+        p {
+          color: darken($gray, 50);
+        }
+      }
     }
     &:nth-child(7) {
       background-color: $gray;
+      & > div {
+        & i,
+        p {
+          color: darken($gray, 40);
+        }
+      }
     }
     &:nth-child(8) {
       background-color: $blue5;
       grid-column: 3/5;
       grid-row: 3/5;
       color: white;
+    }
+  }
+  & table {
+    &.square {
+      width: 100%;
     }
   }
 }

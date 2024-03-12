@@ -17,7 +17,6 @@ switch ($uc) {
         break;
     case "home":
         if (isset($_SESSION["id_u"])) {
-            include "./views/v_navBar.php";
             $numberOfOrderInValidation = $orderDataAccess->getNumberOfOrderValidation();
             $numberOfOrder = $orderDataAccess->getNumberOfOrder();
             $numberOfStock = $stockDataAccess->getNumberOfStock();
@@ -28,15 +27,17 @@ switch ($uc) {
             $orderList = $orderDataAccess->handleFilter("id_co-ASC");
             include "./views/v_home.php";
         } else {
-            $_SESSION["messageBox"] = "loginError"; //todo : handle messages
+            setcookie("errorMessage", "loginError", time() + (100000), "/");
+            header("location: ./index.php");
         }
         break;
+
+
     case "user":
         include "./controllers/userController.php";
         break;
     case "stock":
         if (isset($_SESSION["id_u"])) {
-            include "./views/v_navBar.php";
             include "./controllers/stockController.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages
@@ -44,7 +45,6 @@ switch ($uc) {
         break;
     case "order":
         if (isset($_SESSION["id_u"])) {
-            include "./views/v_navBar.php";
             include "./controllers/orderController.php";
         } else {
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages

@@ -39,8 +39,8 @@ switch ($action) {
                 $stockDataAccess->deleteStock($_POST["id_st"]);
                 header("location: ./index.php?uc=stock&action=view");
             } catch (Exception $e) {
-                $_SESSION['messageBox'] = "errorStock"; //todo : handle messages
-                echo "Le stock ne peut etre supprimer car il est concerné par des commandes";
+                setcookie("errorMessage", "stockError", time() + (100000), "/");
+                header("location: ./index.php?uc=stock&action=view");
             }
         } elseif (isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["type_st"])) {
             $id_st = htmlspecialchars($_POST["id_st"]);

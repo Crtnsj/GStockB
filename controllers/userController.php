@@ -37,7 +37,7 @@ switch ($action) {
             try {
                 $userDataAccess->createUser($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role);
             } catch (Exception $e) {
-                echo $e;
+                $userDataAccess->writeLog($e, 'userErrorLogs.log');
             }
         }
         //for authentication 
@@ -47,30 +47,24 @@ switch ($action) {
                 if ($login) {
                     header("location: ./index.php?uc=home");
                 } else {
-                    // try {
-
-                    $userDataAccess->writeLog('Ceci est un message d\'erreur', 'errorLogs.log');
-
-                    // } catch (Exception $e) {
-
-                    //     var_dump($e);
-                    // }
-                    // setcookie("errorMessage", "Identifiants invalides", time() + (100000), "/");
-                    // header("location: ./index.php");
+                    $userDataAccess->writeLog($_POST["email"] . "a échoué la connexion", 'loginErrorLogs.log');
+                    setcookie("errorMessage", "Identifiants invalides", time() + (100000), "/");
+                    header("location: ./index.php");
                 }
             } catch (Exception $e) {
+                $userDataAccess->writeLog($e, 'userErrorLogs.log');
                 setcookie("errorMessage", "Une erreur s'est produite", time() + (100000), "/");
             }
         }
 
         break;
+
     case "disconnect":
+        //remove session's data
         $_SESSION = array();
-
-        // Destruction de la session
+        //destruction of session
         session_destroy();
-
-        // Redirection vers la page de connexion
+        //redirect to login page
         header("Location: index.php");
         break;
 }

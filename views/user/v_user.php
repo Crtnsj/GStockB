@@ -1,4 +1,4 @@
-<a href="./index.php?uc=order&action=create" class="btnAdd "><i class="ti ti-user-plus"></i>Créer un utilisateur</a>
+<a href="./index.php?uc=user&action=create" class="btnAdd "><i class="ti ti-user-plus"></i>Créer un utilisateur</a>
 <table class="table">
     <thead>
         <tr>

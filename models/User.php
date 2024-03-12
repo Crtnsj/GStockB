@@ -75,4 +75,16 @@ class User
         $result = count($queryResult);
         return $result;
     }
+    function createUSer($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role)
+    {
+        $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+        $query = "INSERT INTO `utilisateurs` (`id_u`, `nom_u`, `prenom_u`, `email_u`, `mot_de_passe`, `id_role`) VALUES (NULL, :nom_u, :prenom_u, :email_u, :hash, :id_role);";
+        $this->db->query($query);
+        $this->db->bind(':nom_u', $nom_u);
+        $this->db->bind(':prenom_u', $prenom_u);
+        $this->db->bind(':email_u', $email_u);
+        $this->db->bind(':id_role', $id_role);
+        $this->db->bind(':hash', $hash);
+        $this->db->execute();
+    }
 }

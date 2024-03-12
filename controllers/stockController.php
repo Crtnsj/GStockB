@@ -1,7 +1,5 @@
 <?php
 
-$stockDataAccess = new stock();
-
 $action = $_GET["action"];
 
 switch ($action) {

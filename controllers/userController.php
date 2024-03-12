@@ -1,7 +1,8 @@
 <?php
 
 
-$userDataAccess = new User();
+
+// $userDataAccess = new User();
 
 $action = $_GET["action"];
 
@@ -26,23 +27,39 @@ switch ($action) {
         include "./views/user/v_createUser.php";
         break;
     case "validForm":
+        //for create account
         if (isset($_POST["nom_u"]) && isset($_POST["prenom_u"])) {
             $nom_u = htmlspecialchars($_POST["nom_u"]);
             $prenom_u = htmlspecialchars($_POST["prenom_u"]);
             $id_role = htmlspecialchars($_POST["id_role"]);
             $email_u = htmlspecialchars($_POST["email_u"]);
             $mot_de_passe = htmlspecialchars($_POST["mot_de_passe"]);
-
             try {
-
                 $userDataAccess->createUser($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role);
             } catch (Exception $e) {
                 echo $e;
             }
-        } else {
-            $login = $userDataAccess->login(htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["password"]));
-            if ($login) {
-                header("location: ./index.php?uc=home");
+        }
+        //for authentication 
+        else {
+            try {
+                $login = $userDataAccess->login(htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["password"]));
+                if ($login) {
+                    header("location: ./index.php?uc=home");
+                } else {
+                    // try {
+
+                    $userDataAccess->writeLog('Ceci est un message d\'erreur', 'errorLogs.log');
+
+                    // } catch (Exception $e) {
+
+                    //     var_dump($e);
+                    // }
+                    // setcookie("errorMessage", "Identifiants invalides", time() + (100000), "/");
+                    // header("location: ./index.php");
+                }
+            } catch (Exception $e) {
+                setcookie("errorMessage", "Une erreur s'est produite", time() + (100000), "/");
             }
         }
 

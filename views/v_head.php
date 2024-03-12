@@ -32,18 +32,8 @@
         <div class="content">
         <?php endif; ?>
         <?php if (isset($_COOKIE["errorMessage"])) : ?>
-            <div class="errorMessage">
+            <div class="errorBox">
                 <span><?php echo $_COOKIE["errorMessage"]; ?></span>
                 <button class="closeButton" onclick="closeErrorMessage()">Fermer</button>
             </div>
         <?php endif; ?>
-
-        <script>
-            function closeErrorMessage() {
-                // Supprimer le cookie errorMessage en définissant une date d'expiration passée
-                document.cookie = "errorMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                // Cacher la div contenant le message d'erreur
-                const errorMessageDiv = document.querySelector(".errorMessage");
-                errorMessageDiv.style.display = "none";
-            }
-        </script>

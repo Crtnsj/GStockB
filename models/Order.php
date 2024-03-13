@@ -5,7 +5,7 @@ class Order
     private $db;
 
     /**
-     * Constructor for the class user
+     * Constructor for the Order Class
      */
     public function __construct()
     {

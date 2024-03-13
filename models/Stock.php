@@ -5,22 +5,31 @@ class Stock
     private $db;
 
     /**
-     * Constructor for the class user
+     * Constructor for the User class.
      */
     public function __construct()
     {
         $this->db = new Database();
     }
+
+    /**
+     * Get stocks from the database.
+     *
+     * @param string $column The column to sort the stocks by.
+     * @param string $order The order ('ASC' or 'DESC') to sort the stocks.
+     * 
+     * @return array An array containing the stocks retrieved from the database.
+     */
     function getStocks($column, $order)
     {
         $validColumns = ['id_st', 'nom_st', 'description_st', 'quantite_st', 'type_st'];
 
-        // Vérification de la colonne valide
+        // Verification of a valid column
         if (!in_array($column, $validColumns)) {
             $_SESSION['messageBox'] = "errorStock";
         }
 
-        // Vérification de l'ordre valide
+        // Verification of a valid order
         $order = strtoupper($order);
         if ($order !== 'ASC' && $order !== 'DESC') {
             $_SESSION['messageBox'] = "errorStock";
@@ -31,6 +40,14 @@ class Stock
         $result = $this->db->resultSet();
         return $result;
     }
+
+    /**
+     * Get a stock by its ID.
+     *
+     * @param int $id_st The ID of the stock to retrieve.
+     * 
+     * @return object The stock object retrieved from the database.
+     */
     function getStockByID($id_st)
     {
         $query = "SELECT * FROM stocks WHERE id_st = :id_st";
@@ -39,6 +56,17 @@ class Stock
         $result = $this->db->resultSet();
         return $result[0];
     }
+
+    /**
+     * Create a new stock.
+     *
+     * @param string $nom_st The name of the stock.
+     * @param string $description_st The description of the stock.
+     * @param int $quantite_st The quantity of the stock.
+     * @param string $type_st The type of the stock.
+     * 
+     * @return void
+     */
     function createStock($nom_st, $description_st, $quantite_st, $type_st)
     {
         $query = "INSERT INTO `stocks` (`id_st`, `nom_st`, `description_st`, `quantite_st`, `type_st`) VALUES (NULL, :nom_st, :description_st, :quantite_st, :type_st);";
@@ -49,7 +77,14 @@ class Stock
         $this->db->bind(':type_st', $type_st);
         $this->db->execute();
     }
-    //supprime un stock
+
+    /**
+     * Delete a stock by its ID.
+     *
+     * @param int $id_st The ID of the stock to delete.
+     * 
+     * @return void
+     */
     function deleteStock($id_st)
     {
         $query = "DELETE FROM stocks WHERE `stocks`.`id_st` = :id_st";
@@ -58,7 +93,16 @@ class Stock
         $this->db->execute();
     }
 
-
+    /**
+     * Update a stock.
+     *
+     * @param int $id_st The ID of the stock to update.
+     * @param string $nom_st The updated name of the stock.
+     * @param string $description_st The updated description of the stock.
+     * @param string $type_st The updated type of the stock.
+     * 
+     * @return void
+     */
     function updateStock($id_st, $nom_st, $description_st, $type_st)
     {
         $query = "UPDATE `stocks` SET `nom_st` = :nom_st, `description_st` = :description_st, `type_st` = :type_st WHERE `stocks`.`id_st` = :id_st";
@@ -71,14 +115,25 @@ class Stock
     }
 
 
+    /**
+     * Get the names of all stocks.
+     *
+     * @return array An array containing the names of all stocks.
+     */
     function getStocksNames()
     {
-
         $query = "SELECT nom_st FROM stocks";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
     }
+
+    /**
+     * Translate a stock name to its corresponding ID.
+     *
+     * @param string $nom_st The name of the stock.
+     * @return int The ID of the stock.
+     */
     function translateNameToID($nom_st)
     {
         $query = "SELECT id_st FROM stocks WHERE `stocks`.`nom_st` = :nom_st";
@@ -87,6 +142,13 @@ class Stock
         $result = $this->db->resultSet();
         return $result[0]->id_st;
     }
+
+    /**
+     * Translate a stock ID to its corresponding name.
+     *
+     * @param int $id_st The ID of the stock.
+     * @return string The name of the stock.
+     */
     function translateIDToName($id_st)
     {
         $query = "SELECT nom_st FROM stocks WHERE `stocks`.`id_st` = :id_st";
@@ -95,11 +157,25 @@ class Stock
         $result = $this->db->resultSet();
         return $result[0]->nom_st;
     }
+
+    /**
+     * Compare if there are identical stocks in the selected stocks array.
+     *
+     * @param array $selectedStocks An array of selected stocks.
+     * @return bool True if there are identical stocks, false otherwise.
+     */
     function compareIdenticalStock($selectedStocks)
     {
         $uniqueStocks = array_unique($selectedStocks);
         return count($uniqueStocks) !== count($selectedStocks);
     }
+
+    /**
+     * Get the quantity of a stock by its ID.
+     *
+     * @param int $id_st The ID of the stock.
+     * @return array An array containing the quantity of the stock.
+     */
     function getQteOfStock($id_st)
     {
         $query = "SELECT quantite_st FROM stocks WHERE id_st = :id_st";
@@ -108,6 +184,16 @@ class Stock
         $result = $this->db->resultSet();
         return $result;
     }
+
+    /**
+     * Update the quantity of a stock based on the given parameters.
+     *
+     * @param int $id_st The ID of the stock.
+     * @param int $quantite_details The quantity details to update.
+     * @param string $type_co The type of the update ("entrée" or "sortie").
+     * 
+     * @return void
+     */
     function updateQteOfStock($id_st, $quantite_details, $type_co)
     {
         if ($type_co == "entrée") {
@@ -132,6 +218,14 @@ class Stock
             }
         }
     }
+
+    /**
+     * Handle the filter for retrieving stocks based on the given filter.
+     *
+     * @param string $filter The filter to apply.
+     * 
+     * @return array An array of stocks that match the filter.
+     */
     function handleFilter($filter)
     {
         $whatWanted = explode("-", $filter);
@@ -139,6 +233,12 @@ class Stock
 
         return $stocks;
     }
+
+    /**
+     * Get the total number of stocks.
+     *
+     * @return int The total number of stocks.
+     */
     function getNumberOfStock()
     {
         $query = "SELECT id_st FROM stocks";
@@ -147,6 +247,12 @@ class Stock
         $result = count($queryResult);
         return $result;
     }
+
+    /**
+     * Get the popular stocks based on the number of times they appear in the details_commande table.
+     *
+     * @return array An array of popular stocks.
+     */
     function getPopularStocks()
     {
         $query = "SELECT id_st, COUNT(id_st) AS count FROM details_commande GROUP BY id_st ORDER BY count DESC LIMIT 5";
@@ -154,6 +260,12 @@ class Stock
         $result = $this->db->resultSet();
         return $result;
     }
+
+    /**
+     * Get the stocks with the lowest quantity.
+     *
+     * @return array An array of stocks with the lowest quantity.
+     */
     function getLowStocks()
     {
         $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT 10";

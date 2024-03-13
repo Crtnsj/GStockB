@@ -2,33 +2,36 @@
 
 $action = $_GET["action"];
 
+if (empty($_GET["filter"])) {
+    $stocks = $stockDataAccess->handleFilter("id_st-ASC");
+} else {
+    $filter = $_GET["filter"];
+    $stocks = $stockDataAccess->handleFilter($filter);
+    $column = explode("-", $filter)[0];
+    $order = explode("-", $filter)[1];
+}
+
 switch ($action) {
     case "view":
-        if (empty($_GET["filter"])) {
-            $stocks = $stockDataAccess->handleFilter("id_st-ASC");
-            include "./views/stock/v_stock.php";
-            break;
-        } else {
-            $filter = $_GET["filter"];
-            $stocks = $stockDataAccess->handleFilter($filter);
-            $column = explode("-", $filter)[0];
-            $order = explode("-", $filter)[1];
-            include "./views/stock/v_stock.php";
-        }
+        include "./views/stock/v_stock.php";
+        break;
     case "update":
-        if (isset($_GET["id_st"])) {
-            $id = htmlspecialchars($_GET["id_st"]);
+        if (isset($_GET["id"])) {
+            $id = htmlspecialchars($_GET["id"]);
             $targetedStock  = $stockDataAccess->getStockByID($id);
             include("views/stock/v_updateStock.php");
+            include "./views/stock/v_stock.php";
         }
         break;
     case "create":
-        include("views/stock/v_createStock.php");
+        include "views/stock/v_createStock.php";
+        include "./views/stock/v_stock.php";
         break;
     case "delete":
-        if (isset($_GET["id_st"])) {
-            $id = htmlspecialchars($_GET["id_st"]);
-            include("views/stock/v_deleteStock.php");
+        if (isset($_GET["id"])) {
+            $id = htmlspecialchars($_GET["id"]);
+            include "views/stock/v_deleteStock.php";
+            include "./views/stock/v_stock.php";
         }
         break;
     case "validForm":

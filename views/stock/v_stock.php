@@ -23,8 +23,8 @@
                 <td><?php echo $stock->quantite_st; ?></td>
                 <td><?php echo $stock->type_st; ?></td>
                 <td>
-                    <a href="./index.php?uc=stock&action=update&id_st=<?php echo $stock->id_st; ?>"><i class="ti ti-edit"></i></a>
-                    <a href="./index.php?uc=stock&action=delete&id_st=<?php echo $stock->id_st; ?>"><i class="ti ti-trash-x"></i></a>
+                    <a href="./index.php?uc=stock&action=update&id=<?php echo $stock->id_st; ?>"><i class="ti ti-edit"></i></a>
+                    <a href="./index.php?uc=stock&action=delete&id=<?php echo $stock->id_st; ?>"><i class="ti ti-trash-x"></i></a>
                 </td>
             </tr>
         <?php } ?>

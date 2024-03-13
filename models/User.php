@@ -2,26 +2,28 @@
 
 class User
 {
-    public $id;
-    public $lastname;
-    public $firstname;
-    public $email;
-    public $password;
-    public $role;
 
     private $db;
 
     /**
-     * Constructor for the class user
+     * Constructor for the User class.
      */
     public function __construct()
     {
         $this->db = new Database();
     }
 
-    function login($email, $password)
+    /**
+     * Logs in a user with the given email and password.
+     *
+     * @param string $email The email address of the user.
+     * @param string $password The password of the user.
+     * 
+     * @return bool True if the login is successful, false otherwise.
+     */
+    public function login($email, $password)
     {
-        $query = "SELECT `id_u`,`mot_de_passe`,`id_role` FROM utilisateurs WHERE email_u = :email";
+        $query = "SELECT `id_u`, `mot_de_passe`, `id_role` FROM utilisateurs WHERE email_u = :email";
         $this->db->query($query);
         $this->db->bind(':email', $email);
         $result = $this->db->resultSet();
@@ -39,7 +41,16 @@ class User
             $_SESSION["messageBox"] = "loginError"; //todo : handle messages
         }
     }
-    function getUsers($column, $order)
+
+    /**
+     * Get users based on the specified column and order.
+     *
+     * @param string $column The column to order the results by.
+     * @param string $order The order to sort the results in (ASC or DESC).
+     * 
+     * @return array An array of users matching the specified column and order.
+     */
+    public function getUsers($column, $order)
     {
         $validColumns = ['id_u', 'nom_u', 'prenom_u', 'email_u', 'id_role', 'active'];
 
@@ -61,13 +72,26 @@ class User
         return $result;
     }
 
-    function handleFilter($filter)
+    /**
+     * Handle the filter for retrieving users based on the given filter.
+     *
+     * @param string $filter The filter to apply.
+     * 
+     * @return array An array of users that match the filter.
+     */
+    public function handleFilter($filter)
     {
         $whatWanted = explode("-", $filter);
         $users = $this->getUsers($whatWanted[0], $whatWanted[1]);
         return $users;
     }
-    function getNumberOfUser()
+
+    /**
+     * Get the total number of users.
+     *
+     * @return int The total number of users.
+     */
+    public function getNumberOfUser()
     {
         $query = "SELECT id_u FROM utilisateurs";
         $this->db->query($query);
@@ -75,7 +99,19 @@ class User
         $result = count($queryResult);
         return $result;
     }
-    function createUSer($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role)
+
+    /**
+     * Create a new user with the given information.
+     *
+     * @param string $nom_u The last name of the user.
+     * @param string $prenom_u The first name of the user.
+     * @param string $email_u The email address of the user.
+     * @param string $mot_de_passe The password of the user.
+     * @param int $id_role The ID of the role for the user.
+     * 
+     * @return void
+     */
+    public function createUser($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role)
     {
         $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
         $query = "INSERT INTO `utilisateurs` (`id_u`, `nom_u`, `prenom_u`, `email_u`, `mot_de_passe`, `id_role`) VALUES (NULL, :nom_u, :prenom_u, :email_u, :hash, :id_role);";
@@ -87,14 +123,31 @@ class User
         $this->db->bind(':hash', $hash);
         $this->db->execute();
     }
-    function writeLog($message, $filename)
+
+    /**
+     * Write a log message to the specified file.
+     *
+     * @param string $message The message to write to the log.
+     * @param string $filename The name of the log file.
+     * 
+     * @return void
+     */
+    public function writeLog($message, $filename)
     {
         // !! important, you must have rights to the target directory
         $logMessage = date('[Y-m-d H:i:s]') . ' ' . $message . PHP_EOL;
         $outputFile = __DIR__ . '/../logs/' . $filename;
         file_put_contents($outputFile, $logMessage, FILE_APPEND);
     }
-    function disableUser($id_u)
+
+    /**
+     * Disable a user with the specified ID.
+     *
+     * @param int $id_u The ID of the user to disable.
+     * 
+     * @return void
+     */
+    public function disableUser($id_u)
     {
         $query = "UPDATE `utilisateurs` SET `active` = '2' WHERE `utilisateurs`.`id_u` = :id_u;";
         $this->db->query($query);

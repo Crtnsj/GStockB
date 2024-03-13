@@ -126,6 +126,7 @@ class Order
         $stockDataAccess = new Stock();
         for ($i = 0; $i < count($result); $i++) {
             $orderDetail = new stdClass();
+            $orderDetail->id_st = $result[$i]->id_st;
             $orderDetail->nom_st = $stockDataAccess->translateIDToName($result[$i]->id_st);
             $orderDetail->quantite_details = $result[$i]->quantite_details;
             $orderDetails[] = $orderDetail;
@@ -199,5 +200,13 @@ class Order
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
+    }
+    function getStatut($id_co)
+    {
+        $query = "SELECT statut_co FROM commandes WHERE `id_co` = :id_co";
+        $this->db->query($query);
+        $this->db->bind(':id_co', $id_co);
+        $result = $this->db->resultSet();
+        return $result[0]->statut_co;
     }
 }

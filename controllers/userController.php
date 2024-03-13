@@ -56,7 +56,6 @@ switch ($action) {
 
 
     case "disable":
-        echo $_GET["id"];
         if ($_GET["id"] != 2) {
             $users = $userDataAccess->handleFilter("id_u-ASC");
             include "./views/user/v_disableUser.php";

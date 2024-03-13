@@ -62,14 +62,21 @@ switch ($action) {
 
         break;
     case "validOrder":
-        if ($_SESSION['id_role'] == 1) {
-            $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
-            $type_co = $orderDataAccess->getTypeCo(htmlspecialchars($_GET["id_co"]));
-            for ($i = 0; $i < count($orderDetails); $i++) {
-                $stockDataAccess->updateQteOfStock($orderDetails[$i]->id_st, $orderDetails[$i]->quantite_details, $type_co);
+        if ($_SESSION['id_role'] < 3) {
+            $orderStatut = $orderDataAccess->getStatut(htmlspecialchars($_GET["id_co"]));
+            if ($orderStatut == "en_attente") {
+                $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
+                $type_co = $orderDataAccess->getTypeCo(htmlspecialchars($_GET["id_co"]));
+                for ($i = 0; $i < count($orderDetails); $i++) {
+                    $stockDataAccess->updateQteOfStock($orderDetails[$i]->id_st, $orderDetails[$i]->quantite_details, $type_co);
+                }
+                $orderDataAccess->validOrder(htmlspecialchars($_GET["id_co"]));
+                header("location: index.php?uc=order&action=view");
+            } else {
+                setcookie("errorMessage", "La commande est déjà validée", time() + (100000), "/");
+                header("location: index.php?uc=order&action=view");
             }
-            $orderDataAccess->validOrder(htmlspecialchars($_GET["id_co"]));
-            header("location: index.php?uc=order&action=view");
         };
+
         break;
 }

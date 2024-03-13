@@ -41,7 +41,7 @@ class User
     }
     function getUsers($column, $order)
     {
-        $validColumns = ['id_u', 'nom_u', 'prenom_u', 'email_u', 'id_role'];
+        $validColumns = ['id_u', 'nom_u', 'prenom_u', 'email_u', 'id_role', 'active'];
 
         // Vérification de la colonne valide
         if (!in_array($column, $validColumns)) {
@@ -54,7 +54,7 @@ class User
             $_SESSION['messageBox'] = "errorUSer";
         }
 
-        $query = "SELECT id_u, nom_u, prenom_u, email_u, id_role FROM utilisateurs ORDER BY $column $order";
+        $query = "SELECT id_u, nom_u, prenom_u, email_u, active, id_role FROM utilisateurs ORDER BY $column $order";
         $this->db->query($query);
         $result = $this->db->resultSet();
 
@@ -93,5 +93,12 @@ class User
         $logMessage = date('[Y-m-d H:i:s]') . ' ' . $message . PHP_EOL;
         $outputFile = __DIR__ . '/../logs/' . $filename;
         file_put_contents($outputFile, $logMessage, FILE_APPEND);
+    }
+    function disableUser($id_u)
+    {
+        $query = "UPDATE `utilisateurs` SET `active` = '2' WHERE `utilisateurs`.`id_u` = :id_u;";
+        $this->db->query($query);
+        $this->db->bind(':id_u', $id_u);
+        $this->db->execute();
     }
 }

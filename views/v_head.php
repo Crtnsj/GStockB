@@ -25,7 +25,7 @@
                     <?php if ($_SESSION["id_role"] == 1) : ?>
                         <li><a href='./index.php?uc=user&action=view'><i class='ti ti-user-cog'></i>Gérer les utilisateurs</a></li>
                     <?php endif; ?>
-                    <li><a href="./index.php?uc=user&action=disconnect"><i class="ti ti-logout"></i>Se déconnecter</a></li>
+                    <li><a href="./index.php?uc=disconnect"><i class="ti ti-logout"></i>Se déconnecter</a></li>
                 </ul>
             </nav>
         </div>

@@ -1,4 +1,4 @@
-.errorBox {
+.removeBox {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -15,18 +15,6 @@
   @keyframes goDown {
     0% {
       transform: translate(-50%, -50vw);
-    }
-    50% {
-      transform: translate(-50%, 0);
-    }
-    60% {
-      transform: translate(-55%, 0);
-    }
-    70% {
-      transform: translate(-45%, 0);
-    }
-    80% {
-      transform: translate(-55%, 0);
     }
     100% {
       transform: translate(-50%, 0);

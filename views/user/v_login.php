@@ -1,7 +1,7 @@
 <div class="loginPage">
     <div class="loginBox">
         <div class="loginForm">
-            <form action="./index.php?uc=user&action=validForm" method="post" class="loginForm--form">
+            <form action="./index.php?uc=validLoginForm" method="post" class="loginForm--form">
                 <div>
                     <p>Email :</p>
                     <input type="email" name="email" id="" class="border border-black border-solid">

@@ -40,31 +40,30 @@ switch ($action) {
                 $userDataAccess->writeLog($e, 'userErrorLogs.log');
             }
         }
-        //for authentication 
-        else {
+        //for disable account
+        if (isset($_POST["disable"]) && isset($_POST["id"])) {
+
             try {
-                $login = $userDataAccess->login(htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["password"]));
-                if ($login) {
-                    header("location: ./index.php?uc=home");
-                } else {
-                    $userDataAccess->writeLog($_POST["email"] . "a échoué la connexion", 'loginErrorLogs.log');
-                    setcookie("errorMessage", "Identifiants invalides", time() + (100000), "/");
-                    header("location: ./index.php");
-                }
+                $userDataAccess->disableUser($_POST["id"]);
+                header("location: ./index.php?uc=user&action=view");
             } catch (Exception $e) {
                 $userDataAccess->writeLog($e, 'userErrorLogs.log');
-                setcookie("errorMessage", "Une erreur s'est produite", time() + (100000), "/");
+                setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
+                header("location: ./index.php?uc=stock&action=view");
             }
         }
-
         break;
 
-    case "disconnect":
-        //remove session's data
-        $_SESSION = array();
-        //destruction of session
-        session_destroy();
-        //redirect to login page
-        header("Location: index.php");
+
+    case "disable":
+        echo $_GET["id"];
+        if ($_GET["id"] != 2) {
+            $users = $userDataAccess->handleFilter("id_u-ASC");
+            include "./views/user/v_disableUser.php";
+            include "./views/user/v_user.php";
+        } else {
+            setcookie("errorMessage", "L'administrateur ne peut être desactivé", time() + (100000), "/");
+            header("Location: index.php?uc=user&action=view");
+        }
         break;
 }

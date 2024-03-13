@@ -56,7 +56,8 @@ switch ($action) {
             }
             header("location: index.php?uc=order&action=view");
         } else {
-            $_SESSION['messageBox'] = "errorOrder"; //todo : handle messages
+            setcookie("errorMessage", "Vous ne pouvez pas créer une commande qui contient deux fois le meme stock", time() + (100000), "/");
+            header("location: index.php?uc=order&action=create");
         }
 
         break;

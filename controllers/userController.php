@@ -1,30 +1,23 @@
 <?php
 
-
-
-// $userDataAccess = new User();
+if (empty($_GET["filter"])) {
+    $users = $userDataAccess->handleFilter("id_u-ASC");
+} else {
+    $filter = $_GET["filter"];
+    $users = $userDataAccess->handleFilter($filter);
+    $column = explode("-", $filter)[0];
+    $order = explode("-", $filter)[1];
+}
 
 $action = $_GET["action"];
 
 switch ($action) {
-    default:
-        include "/views/v_error.php";
-        break;
     case "view":
-        if (empty($_GET["filter"])) {
-            $users = $userDataAccess->handleFilter("id_u-ASC");
-            include "./views/user/v_user.php";
-            break;
-        } else {
-            $filter = $_GET["filter"];
-            $users = $userDataAccess->handleFilter($filter);
-            $column = explode("-", $filter)[0];
-            $order = explode("-", $filter)[1];
-            include "./views/user/v_user.php";
-        }
+        include "./views/user/v_user.php";
         break;
     case "create":
         include "./views/user/v_createUser.php";
+        include "./views/user/v_user.php";
         break;
     case "validForm":
         //for create account

@@ -32,7 +32,7 @@
         <div class="content">
         <?php endif; ?>
         <?php if (isset($_COOKIE["errorMessage"])) : ?>
-            <div class="errorBox pop-up-box">
+            <div class="popUpBox--error popUpBox">
                 <span><?php echo $_COOKIE["errorMessage"]; ?></span>
                 <button class="closeButton" onclick="closePopUp()">Fermer</button>
             </div>

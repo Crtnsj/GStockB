@@ -1,4 +1,4 @@
-<div class="removeBox pop-up-box">
+<div class="popUpBox--remove popUpBox">
     <table class="table">
         <thead>
             <tr>

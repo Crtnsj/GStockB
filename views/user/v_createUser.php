@@ -1,4 +1,4 @@
-<div class="removeBox pop-up-box">
+<div class="popUpBox--remove popUpBox">
     <form action="index.php?uc=user&action=validForm" method="post">
         <p>Nom </p>
         <input type="text" name="nom_u" id="">

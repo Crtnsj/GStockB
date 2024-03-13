@@ -1,4 +1,4 @@
-<div class="removeBox pop-up-box">
+<div class="popUpBox--remove popUpBox">
     <form action="index.php?uc=stock&action=validForm" method="POST">
         <input type="hidden" name="id_st" value="<?php echo $targetedStock->id_st; ?>">
         <input type="text" name="nom_st" id="" value="<?php echo $targetedStock->nom_st ?? ''; ?>">

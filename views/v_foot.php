@@ -1,7 +1,7 @@
 </div>
 </body>
 <script>
-    //function for close a pop-up-box
+    //function for close a popUpBox
     function closePopUp() {
         //delete cookie errorMessage
         document.cookie = "errorMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -16,13 +16,13 @@
             window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
         }
         //desable pop up
-        const popUpDiv = document.querySelector(".pop-up-box");
+        const popUpDiv = document.querySelector(".popUpBox");
         popUpDiv.style.display = "none";
     }
 
     // Listener for remove pop Up when click out off him
     document.addEventListener("click", function(event) {
-        const popUpDiv = document.querySelector(".pop-up-box");
+        const popUpDiv = document.querySelector(".popUpBox");
         if (!popUpDiv.contains(event.target)) {
             // close pop up
             closePopUp();

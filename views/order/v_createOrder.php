@@ -1,4 +1,4 @@
-<div class="removeBox pop-up-box">
+<div class="popUpBox--remove popUpBox">
     <form action="index.php?uc=order&action=validForm" method="post">
         <select name="type_co" id="">
             <option value="entrée">Entrée</option>

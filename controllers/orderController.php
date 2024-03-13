@@ -2,29 +2,36 @@
 
 $action = $_GET["action"];
 
+if (empty($_GET["filter"])) {
+    $orders = $orderDataAccess->handleFilter("id_co-ASC");
+} else {
+    $filter = $_GET["filter"];
+
+    $orders = $orderDataAccess->handleFilter($filter);
+    $column = explode("-", $filter)[0];
+    $order = explode("-", $filter)[1];
+}
+
 switch ($action) {
     case "view":
-        if (empty($_GET["filter"])) {
-            $orders = $orderDataAccess->handleFilter("id_co-ASC");
-            include "./views/order/v_order.php";
-            break;
-        } else {
-            $filter = $_GET["filter"];
-
-            $orders = $orderDataAccess->handleFilter($filter);
-            $column = explode("-", $filter)[0];
-            $order = explode("-", $filter)[1];
-            include "./views/order/v_order.php";
-        }
+        include "./views/order/v_order.php";
         break;
+
+
     case "create":
         $stocks = $stockDataAccess->getStocksNames();
         include "./views/order/v_createOrder.php";
+        include "./views/order/v_order.php";
         break;
+
+
     case "viewDetails":
         $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
         include "./views/order/v_orderDetails.php";
+        include "./views/order/v_order.php";
         break;
+
+
     case "validForm":
         $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]);
         $selectedStocks = array();

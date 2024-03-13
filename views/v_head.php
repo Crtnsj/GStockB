@@ -34,6 +34,6 @@
         <?php if (isset($_COOKIE["errorMessage"])) : ?>
             <div class="errorBox pop-up-box">
                 <span><?php echo $_COOKIE["errorMessage"]; ?></span>
-                <button class="closeButton" onclick="closeErrorMessage()">Fermer</button>
+                <button class="closeButton" onclick="closePopUp()">Fermer</button>
             </div>
         <?php endif; ?>

@@ -5,6 +5,7 @@
     function closePopUp() {
         //delete cookie errorMessage
         document.cookie = "errorMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "successMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
         const urlParams = new URLSearchParams(window.location.search);
         const actionParam = urlParams.get('action');

@@ -1,4 +1,5 @@
 <div class="popUpBox popUpBox--remove">
+    <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
     <form action="index.php?uc=stock&action=validForm" method="post">
         <input type="text" name="nom_st" id="">
         <input type="text" name="description_st" id="">

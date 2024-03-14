@@ -1,4 +1,5 @@
 <div class="popUpBox--remove popUpBox">
+    <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
     <table class="table">
         <thead>
             <tr>

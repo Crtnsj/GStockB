@@ -33,7 +33,13 @@
         <?php endif; ?>
         <?php if (isset($_COOKIE["errorMessage"])) : ?>
             <div class="popUpBox--error popUpBox">
+                <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
                 <span><?php echo $_COOKIE["errorMessage"]; ?></span>
-                <button class="closeButton" onclick="closePopUp()">Fermer</button>
+            </div>
+
+        <?php elseif (isset($_COOKIE["successMessage"])) : ?>
+            <div class="popUpBox--success popUpBox">
+                <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
+                <span><?php echo $_COOKIE["successMessage"]; ?></span>
             </div>
         <?php endif; ?>

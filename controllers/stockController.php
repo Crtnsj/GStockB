@@ -46,9 +46,9 @@ switch ($action) {
 
     case "validForm":
         //for delete a stock 
-        if (isset($_POST["delete"]) && isset($_POST["id_st"])) {
+        if (isset($_POST["delete"]) && isset($_POST["id"])) {
             try {
-                $stockDataAccess->deleteStock($_POST["id_st"]);
+                $stockDataAccess->deleteStock($_POST["id"]);
                 header("location: ./index.php?uc=stock&action=view");
             } catch (Exception $e) {
                 setcookie("errorMessage", "Le stock ne peut être supprimé car il est concerné par une commande", time() + (100000), "/");
@@ -56,8 +56,8 @@ switch ($action) {
             }
         }
         //for update a stock 
-        elseif (isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["type_st"])) {
-            $id_st = htmlspecialchars($_POST["id_st"]);
+        elseif (isset($_POST["id"], $_POST["nom_st"], $_POST["description_st"], $_POST["type_st"])) {
+            $id_st = htmlspecialchars($_POST["id"]);
             $nom_st = htmlspecialchars($_POST["nom_st"]);
             $description_st = htmlspecialchars($_POST["description_st"]);
             $type_st = htmlspecialchars($_POST["type_st"]);
@@ -71,7 +71,7 @@ switch ($action) {
             }
         }
         //for create a stock
-        elseif (!isset($_POST["id_st"], $_POST["nom_st"], $_POST["description_st"], $_POST["quantite_st"], $_POST["type_st"])) {
+        elseif (!isset($_POST["id"], $_POST["nom_st"], $_POST["description_st"], $_POST["quantite_st"], $_POST["type_st"])) {
             $nom_st = htmlspecialchars($_POST["nom_st"]);
             $description_st = htmlspecialchars($_POST["description_st"]);
             $quantite_st = htmlspecialchars($_POST["quantite_st"]);

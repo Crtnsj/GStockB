@@ -33,6 +33,11 @@ switch ($action) {
         include "./views/order/v_order.php";
         break;
 
+    case "rejectOrder":
+        include "./views/order/v_rejectOrder.php";
+        include "./views/order/v_order.php";
+        break;
+
     case "validForm":
 
         //for valid an order
@@ -48,10 +53,29 @@ switch ($action) {
                     $orderDataAccess->validOrder(htmlspecialchars($_POST["id"]));
                     header("location: index.php?uc=order&action=view");
                 } else {
-                    setcookie("errorMessage", "La commande est déjà validée", time() + (100000), "/");
+                    setcookie("errorMessage", "La commande n'est plus en attente", time() + (100000), "/");
                     header("location: index.php?uc=order&action=view");
                 }
-            };
+            } else {
+                setcookie("errorMessage", "Vous n'avez pas les droits requis", time() + (100000), "/");
+                header("location: index.php?uc=order&action=view");
+            }
+        }
+        //for reject an order
+        if (isset($_POST["reject"]) && isset($_POST["id"])) {
+            if ($_SESSION['id_role'] < 3) {
+                $orderStatut = $orderDataAccess->getStatut(htmlspecialchars($_POST["id"]));
+                if ($orderStatut == "en_attente") {
+                    $orderDataAccess->rejectOrder(htmlspecialchars($_POST["id"]));
+                    header("location: index.php?uc=order&action=view");
+                } else {
+                    setcookie("errorMessage", "La commande n'est plus en attente", time() + (100000), "/");
+                    header("location: index.php?uc=order&action=view");
+                }
+            } else {
+                setcookie("errorMessage", "Vous n'avez pas les droits requis", time() + (100000), "/");
+                header("location: index.php?uc=order&action=view");
+            }
         }
         //for create an order 
         else if (isset($_POST["type_co"]) && $_POST["stock1"] && isset($_POST["qte1"]) && isset($_POST["numberOfStocks"])) {

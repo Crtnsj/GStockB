@@ -209,4 +209,19 @@ class Order
         $result = $this->db->resultSet();
         return $result[0]->statut_co;
     }
+    private function deleteOrdersDetails($id_co)
+    {
+        $query = "DELETE FROM details_commande WHERE `details_commande`.`id_co` = :id_co ";
+        $this->db->query($query);
+        $this->db->bind(':id_co', $id_co);
+        $this->db->execute();
+    }
+    public function rejectOrder($id_co)
+    {
+        self::deleteOrdersDetails($id_co);
+        $query = "DELETE FROM commandes WHERE `commandes`.`id_co` = :id_co";
+        $this->db->query($query);
+        $this->db->bind(':id_co', $id_co);
+        $this->db->execute();
+    }
 }

@@ -28,8 +28,12 @@ switch ($action) {
             $email_u = htmlspecialchars($_POST["email_u"]);
             $mot_de_passe = htmlspecialchars($_POST["mot_de_passe"]);
             try {
-                $userDataAccess->createUser($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role);
-                setcookie("successMessage", "L'utilisateur a été créer avec succès", time() + (100000), "/");
+                $userCreation = $userDataAccess->createUser($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role);
+                if ($userCreation) {
+                    setcookie("successMessage", "L'utilisateur a été créer avec succès", time() + (100000), "/");
+                } else {
+                    setcookie("errorMessage", "L'email est déja existant en base", time() + (100000), "/");
+                }
                 header("location: ./index.php?uc=user&action=view");
             } catch (Exception $e) {
                 $userDataAccess->writeLog($e, 'userErrorLogs.log');

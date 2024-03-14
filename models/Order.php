@@ -21,7 +21,7 @@ class Order
      *
      * @throws Exception if an invalid column or order sense is provided.
      */
-    function getOrders($column, $order)
+    private function getOrders($column, $order)
     {
         $validColumns = ['id_co', 'date_co', 'statut_co', 'type_co', 'id_u'];
 
@@ -50,7 +50,7 @@ class Order
      *
      * @return void
      */
-    function createOrder($type_co, $date_co, $id_u)
+    public function createOrder($type_co, $date_co, $id_u)
     {
         $query = "INSERT INTO `commandes` (`id_co`, `date_co`, `statut_co`, `type_co`, `id_u`) VALUES (NULL, :date_co, 'en_attente', :type_co, :id_u);";
         $this->db->query($query);
@@ -68,7 +68,7 @@ class Order
      *
      * @return void
      */
-    function getOrderByDate($date_co, $id_u)
+    public function getOrderByDate($date_co, $id_u)
     {
         $query = "SELECT id_co FROM commandes WHERE date_co = :date_co AND id_u = :id_u;";
         $this->db->query($query);
@@ -86,7 +86,7 @@ class Order
      * 
      * @return void
      */
-    function createOrderDetails($id_co, $id_st, $qte)
+    public function createOrderDetails($id_co, $id_st, $qte)
     {
         $query = "INSERT INTO `details_commande` (`id_co`, `id_st`, `quantite_details`) VALUES (:id_co, :id_st, :qte);";
         $this->db->query($query);
@@ -102,7 +102,7 @@ class Order
      * 
      * @return void
      */
-    function validOrder($id_co)
+    public function validOrder($id_co)
     {
         $query = "UPDATE commandes SET statut_co = 'validee' WHERE id_co = :id_co";
         $this->db->query($query);
@@ -116,7 +116,7 @@ class Order
      * 
      * @return array An array containing the details of the order.
      */
-    function getOrdersDetails($id_co)
+    public function getOrdersDetails($id_co)
     {
         $query = "SELECT id_st, quantite_details FROM details_commande WHERE id_co = :id_co;";
         $this->db->query($query);
@@ -140,7 +140,7 @@ class Order
      * 
      * @return string The type of the order. Possible results : entrée, sortie;
      */
-    function getTypeCo($id_co)
+    public function getTypeCo($id_co)
     {
         $query = "SELECT type_co FROM commandes WHERE id_co = :id_co ;";
         $this->db->query($query);
@@ -155,7 +155,7 @@ class Order
      *
      * @return array An array of orders matching the filter criteria.
      */
-    function handleFilter($filter)
+    public function handleFilter($filter)
     {
         $whatWanted = explode("-", $filter);
         $orders = $this->getOrders($whatWanted[0], $whatWanted[1]);
@@ -167,7 +167,7 @@ class Order
      *
      * @return int The count of orders awaiting validation.
      */
-    function getNumberOfOrderValidation()
+    public function getNumberOfOrderValidation()
     {
         $query = "SELECT id_co FROM commandes WHERE statut_co = 'en_attente';";
         $this->db->query($query);
@@ -181,7 +181,7 @@ class Order
      *
      * @return int The total count of orders.
      */
-    function getNumberOfOrder()
+    public function getNumberOfOrder()
     {
         $query = "SELECT id_co FROM commandes";
         $this->db->query($query);
@@ -194,14 +194,14 @@ class Order
      *
      * @return array An array containing the last 10 orders sorted by date.
      */
-    function getLastOrders()
+    public function getLastOrders()
     {
         $query = "SELECT id_co, date_co FROM commandes ORDER BY date_co ASC LIMIT 10";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
     }
-    function getStatut($id_co)
+    public function getStatut($id_co)
     {
         $query = "SELECT statut_co FROM commandes WHERE `id_co` = :id_co";
         $this->db->query($query);

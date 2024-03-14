@@ -20,7 +20,7 @@ class Stock
      * 
      * @return array An array containing the stocks retrieved from the database.
      */
-    function getStocks($column, $order)
+    private function getStocks($column, $order)
     {
         $validColumns = ['id_st', 'nom_st', 'description_st', 'quantite_st', 'type_st'];
 
@@ -48,7 +48,7 @@ class Stock
      * 
      * @return object The stock object retrieved from the database.
      */
-    function getStockByID($id_st)
+    public function getStockByID($id_st)
     {
         $query = "SELECT * FROM stocks WHERE id_st = :id_st";
         $this->db->query($query);
@@ -67,7 +67,7 @@ class Stock
      * 
      * @return void
      */
-    function createStock($nom_st, $description_st, $quantite_st, $type_st)
+    public function createStock($nom_st, $description_st, $quantite_st, $type_st)
     {
         $query = "INSERT INTO `stocks` (`id_st`, `nom_st`, `description_st`, `quantite_st`, `type_st`) VALUES (NULL, :nom_st, :description_st, :quantite_st, :type_st);";
         $this->db->query($query);
@@ -85,7 +85,7 @@ class Stock
      * 
      * @return void
      */
-    function deleteStock($id_st)
+    public function deleteStock($id_st)
     {
         $query = "DELETE FROM stocks WHERE `stocks`.`id_st` = :id_st";
         $this->db->query($query);
@@ -103,7 +103,7 @@ class Stock
      * 
      * @return void
      */
-    function updateStock($id_st, $nom_st, $description_st, $type_st)
+    public function updateStock($id_st, $nom_st, $description_st, $type_st)
     {
         $query = "UPDATE `stocks` SET `nom_st` = :nom_st, `description_st` = :description_st, `type_st` = :type_st WHERE `stocks`.`id_st` = :id_st";
         $this->db->query($query);
@@ -120,7 +120,7 @@ class Stock
      *
      * @return array An array containing the names of all stocks.
      */
-    function getStocksNames()
+    public function getStocksNames()
     {
         $query = "SELECT nom_st FROM stocks";
         $this->db->query($query);
@@ -134,7 +134,7 @@ class Stock
      * @param string $nom_st The name of the stock.
      * @return int The ID of the stock.
      */
-    function translateNameToID($nom_st)
+    public function translateNameToID($nom_st)
     {
         $query = "SELECT id_st FROM stocks WHERE `stocks`.`nom_st` = :nom_st";
         $this->db->query($query);
@@ -149,7 +149,7 @@ class Stock
      * @param int $id_st The ID of the stock.
      * @return string The name of the stock.
      */
-    function translateIDToName($id_st)
+    public function translateIDToName($id_st)
     {
         $query = "SELECT nom_st FROM stocks WHERE `stocks`.`id_st` = :id_st";
         $this->db->query($query);
@@ -164,7 +164,7 @@ class Stock
      * @param array $selectedStocks An array of selected stocks.
      * @return bool True if there are identical stocks, false otherwise.
      */
-    function compareIdenticalStock($selectedStocks)
+    public function compareIdenticalStock($selectedStocks)
     {
         $uniqueStocks = array_unique($selectedStocks);
         return count($uniqueStocks) !== count($selectedStocks);
@@ -176,7 +176,7 @@ class Stock
      * @param int $id_st The ID of the stock.
      * @return array An array containing the quantity of the stock.
      */
-    function getQteOfStock($id_st)
+    public function getQteOfStock($id_st)
     {
         $query = "SELECT quantite_st FROM stocks WHERE id_st = :id_st";
         $this->db->query($query);
@@ -194,7 +194,7 @@ class Stock
      * 
      * @return void
      */
-    function updateQteOfStock($id_st, $quantite_details, $type_co)
+    public function updateQteOfStock($id_st, $quantite_details, $type_co)
     {
         if ($type_co == "entrée") {
             $qteOfStock = $this->getQteOfStock($id_st);
@@ -226,7 +226,7 @@ class Stock
      * 
      * @return array An array of stocks that match the filter.
      */
-    function handleFilter($filter)
+    public function handleFilter($filter)
     {
         $whatWanted = explode("-", $filter);
         $stocks = $this->getStocks($whatWanted[0], $whatWanted[1]);
@@ -239,7 +239,7 @@ class Stock
      *
      * @return int The total number of stocks.
      */
-    function getNumberOfStock()
+    public function getNumberOfStock()
     {
         $query = "SELECT id_st FROM stocks";
         $this->db->query($query);
@@ -253,7 +253,7 @@ class Stock
      *
      * @return array An array of popular stocks.
      */
-    function getPopularStocks()
+    public function getPopularStocks()
     {
         $query = "SELECT id_st, COUNT(id_st) AS count FROM details_commande GROUP BY id_st ORDER BY count DESC LIMIT 5";
         $this->db->query($query);
@@ -266,7 +266,7 @@ class Stock
      *
      * @return array An array of stocks with the lowest quantity.
      */
-    function getLowStocks()
+    public function getLowStocks()
     {
         $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT 10";
         $this->db->query($query);

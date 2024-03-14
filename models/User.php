@@ -23,13 +23,14 @@ class User
      */
     public function login($email, $password)
     {
-        $query = "SELECT `id_u`, `mot_de_passe`, `id_role` FROM utilisateurs WHERE email_u = :email";
+        $query = "SELECT `id_u`, `mot_de_passe`, `id_role`, `active` FROM utilisateurs WHERE email_u = :email";
         $this->db->query($query);
         $this->db->bind(':email', $email);
         $result = $this->db->resultSet();
+        var_dump($result);
         if ($result) {
             $user = $result[0];
-            if (password_verify($password, $user->mot_de_passe)) {
+            if (password_verify($password, $user->mot_de_passe) && $user->active == '1') {
                 $_SESSION['id_u'] = $user->id_u;
                 $_SESSION['id_role'] = $user->id_role;
 
@@ -50,7 +51,7 @@ class User
      * 
      * @return array An array of users matching the specified column and order.
      */
-    public function getUsers($column, $order)
+    private function getUsers($column, $order)
     {
         $validColumns = ['id_u', 'nom_u', 'prenom_u', 'email_u', 'id_role', 'active'];
 
@@ -113,15 +114,21 @@ class User
      */
     public function createUser($nom_u, $prenom_u, $email_u, $mot_de_passe, $id_role)
     {
-        $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-        $query = "INSERT INTO `utilisateurs` (`id_u`, `nom_u`, `prenom_u`, `email_u`, `mot_de_passe`, `id_role`) VALUES (NULL, :nom_u, :prenom_u, :email_u, :hash, :id_role);";
-        $this->db->query($query);
-        $this->db->bind(':nom_u', $nom_u);
-        $this->db->bind(':prenom_u', $prenom_u);
-        $this->db->bind(':email_u', $email_u);
-        $this->db->bind(':id_role', $id_role);
-        $this->db->bind(':hash', $hash);
-        $this->db->execute();
+        $existingEmail = self::compareUsersEmails($email_u);
+        if (!$existingEmail) {
+            $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+            $query = "INSERT INTO `utilisateurs` (`id_u`, `nom_u`, `prenom_u`, `email_u`, `mot_de_passe`, `id_role`) VALUES (NULL, :nom_u, :prenom_u, :email_u, :hash, :id_role);";
+            $this->db->query($query);
+            $this->db->bind(':nom_u', $nom_u);
+            $this->db->bind(':prenom_u', $prenom_u);
+            $this->db->bind(':email_u', $email_u);
+            $this->db->bind(':id_role', $id_role);
+            $this->db->bind(':hash', $hash);
+            $this->db->execute();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -166,5 +173,25 @@ class User
         $this->db->query($query);
         $this->db->bind(':id_u', $id_u);
         $this->db->execute();
+    }
+    /**
+     * Find if the email exist in database
+     *
+     * @param string $email_u The email to be compared
+     * 
+     * @return bool The result of the comparison
+     */
+
+    private function compareUsersEmails($email_u)
+    {
+        $query = "SELECT email_u FROM utilisateurs";
+        $this->db->query($query);
+        $result = $this->db->resultSet();
+        foreach ($result as $tests) {
+            if ($tests->email_u == $email_u) {
+                return true;
+            };
+        }
+        return false;
     }
 }

@@ -23,6 +23,7 @@ switch ($action) {
         break;
 
     case "viewDetails":
+        $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
         include "./views/order/v_orderDetails.php";
         include "./views/order/v_order.php";
         break;

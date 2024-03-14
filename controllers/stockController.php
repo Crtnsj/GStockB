@@ -65,6 +65,7 @@ switch ($action) {
                 $stockDataAccess->updateStock($id_st, $nom_st, $description_st, $type_st);
                 header("location: ./index.php?uc=stock&action=view");
             } catch (Exception $e) {
+                $userDataAccess->writeLog($e, 'unknownErrorLogs.log');
                 setcookie("errorMessage", "Une erreur inconnue s'est produite ", time() + (100000), "/");
                 header("location: ./index.php?uc=stock&action=view");
             }
@@ -76,10 +77,6 @@ switch ($action) {
             $quantite_st = htmlspecialchars($_POST["quantite_st"]);
             $type_st = htmlspecialchars($_POST["type_st"]);
             $stockDataAccess->createStock($nom_st, $description_st, $quantite_st, $type_st);
-            header("location: ./index.php?uc=stock&action=view");
-        } else {
-            $userDataAccess->writeLog($e, 'unknownErrorLogs.log');
-            setcookie("errorMessage", "Une erreur inconnue s'est produite ", time() + (100000), "/");
             header("location: ./index.php?uc=stock&action=view");
         }
         break;

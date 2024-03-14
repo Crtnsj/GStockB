@@ -1,7 +1,7 @@
 <div class="popUpBox--create popUpBox">
     <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
     <form action="index.php?uc=order&action=validForm" method="post">
-        <select name="type_co" id="">
+        <select name="type_co">
             <option value="entrée">Entrée</option>
             <option value="sortie">Sortie</option>
         </select>

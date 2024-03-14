@@ -47,6 +47,18 @@ switch ($action) {
                 header("location: ./index.php?uc=stock&action=view");
             }
         }
+        //for enable account
+        if (isset($_POST["enable"]) && isset($_POST["id"])) {
+
+            try {
+                $userDataAccess->enableUser($_POST["id"]);
+                header("location: ./index.php?uc=user&action=view");
+            } catch (Exception $e) {
+                $userDataAccess->writeLog($e, 'userErrorLogs.log');
+                setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
+                header("location: ./index.php?uc=stock&action=view");
+            }
+        }
         break;
 
 
@@ -57,6 +69,17 @@ switch ($action) {
             include "./views/user/v_user.php";
         } else {
             setcookie("errorMessage", "L'administrateur ne peut être desactivé", time() + (100000), "/");
+            header("Location: index.php?uc=user&action=view");
+        }
+        break;
+
+    case "enable":
+        if ($_GET["id"] != 2) {
+            $users = $userDataAccess->handleFilter("id_u-ASC");
+            include "./views/user/v_enableUser.php";
+            include "./views/user/v_user.php";
+        } else {
+            setcookie("errorMessage", "L'administrateur ne peut être activé", time() + (100000), "/");
             header("Location: index.php?uc=user&action=view");
         }
         break;

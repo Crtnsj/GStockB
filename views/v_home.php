@@ -88,7 +88,7 @@
     <a <?php echo $_SESSION["id_role"] == 1 ? "href='./index.php?uc=user&action=view'" : ""; ?>>
         <p class="dashboard__number"><?php echo $numberOfUser ?></p>
         <div> <i class="ti ti-users-group"></i>
-            <p>Nombre d'utilisateurs</p>
+            <p>Nombre d'utilisateurs actifs</p>
         </div>
     </a>
     <a>Liste des commandes

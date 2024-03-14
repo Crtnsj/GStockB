@@ -20,11 +20,13 @@
                 <td><?php echo $user->email_u; ?></td>
                 <td><?php echo $user->active == 1 ? "Activé" : "Desactivé"; ?></td>
                 <td><?php echo $user->id_role; ?></td>
-                <?php echo $user->id_role == 1 ? "<td></td>" : "                
-                <td>
-                    <a><i class='ti ti-user-edit'></i></a>
-                    <a href='./index.php?uc=user&action=disable&id=$user->id_u'><i class='ti ti-user-off'></i></a>
-                </td>"; ?>
+                <?php
+                echo $user->id_role == 1 ? "<td></td>" :
+                    "<td>
+        <a><i class='ti ti-user-edit'></i></a>
+        <a href='./index.php?uc=user&action=" . ($user->active == 1 ? 'disable' : 'enable') . "&id=" . $user->id_u . "'><i class='ti " . ($user->active == 1 ? 'ti-user-off' : 'ti-user-check') . "'></i></a>
+    </td>";
+                ?>
 
             </tr>
         <?php } ?>

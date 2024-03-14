@@ -20,7 +20,7 @@ switch ($uc) {
             $numberOfOrderInValidation = $orderDataAccess->getNumberOfOrderValidation();
             $numberOfOrder = $orderDataAccess->getNumberOfOrder();
             $numberOfStock = $stockDataAccess->getNumberOfStock();
-            $numberOfUser = $userDataAccess->getNumberOfUser();
+            $numberOfUser = $userDataAccess->getNumberOfActivatedUser();
             $popularStocks = $stockDataAccess->getPopularStocks();
             $lowStocks = $stockDataAccess->getLowStocks();
             $lastOrders = $orderDataAccess->getLastOrders();

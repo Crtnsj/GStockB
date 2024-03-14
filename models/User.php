@@ -87,13 +87,13 @@ class User
     }
 
     /**
-     * Get the total number of users.
+     * Get the total number of activated users.
      *
-     * @return int The total number of users.
+     * @return int The total number of avtiveted users.
      */
-    public function getNumberOfUser()
+    public function getNumberOfActivatedUser()
     {
-        $query = "SELECT id_u FROM utilisateurs";
+        $query = "SELECT id_u FROM utilisateurs WHERE active= '1'";
         $this->db->query($query);
         $queryResult = $this->db->resultSet();
         $result = count($queryResult);
@@ -141,7 +141,7 @@ class User
     }
 
     /**
-     * Disable a user with the specified ID.
+     * Disable an user with the specified ID.
      *
      * @param int $id_u The ID of the user to disable.
      * 
@@ -150,6 +150,19 @@ class User
     public function disableUser($id_u)
     {
         $query = "UPDATE `utilisateurs` SET `active` = '2' WHERE `utilisateurs`.`id_u` = :id_u;";
+        $this->db->query($query);
+        $this->db->bind(':id_u', $id_u);
+        $this->db->execute();
+    }
+    /** Enable an user with the specified ID.
+     *
+     * @param int $id_u The ID of the user to enable.
+     * 
+     * @return void
+     */
+    public function enableUser($id_u)
+    {
+        $query = "UPDATE `utilisateurs` SET `active` = '1' WHERE `utilisateurs`.`id_u` = :id_u;";
         $this->db->query($query);
         $this->db->bind(':id_u', $id_u);
         $this->db->execute();

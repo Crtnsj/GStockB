@@ -36,7 +36,7 @@ class Order
             $_SESSION['messageBox'] = "errorStock";
         }
 
-        $query = "SELECT * FROM commandes ORDER BY $column $order";
+        $query = "SELECT * FROM commandes ORDER BY $column $order, id_co DESC";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;

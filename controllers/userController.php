@@ -53,7 +53,7 @@ switch ($action) {
             } catch (Exception $e) {
                 $userDataAccess->writeLog($e, 'userErrorLogs.log');
                 setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
-                header("location: ./index.php?uc=stock&action=view");
+                header("location: ./index.php?uc=user&action=view");
             }
         }
         //for enable account
@@ -65,7 +65,7 @@ switch ($action) {
             } catch (Exception $e) {
                 $userDataAccess->writeLog($e, 'userErrorLogs.log');
                 setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
-                header("location: ./index.php?uc=stock&action=view");
+                header("location: ./index.php?uc=user&action=view");
             }
         }
         // for upadate an user
@@ -81,7 +81,27 @@ switch ($action) {
             } catch (Exception $e) {
                 $userDataAccess->writeLog($e, 'userErrorLogs.log');
                 setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
-                header("location: ./index.php?uc=stock&action=view");
+                header("location: ./index.php?uc=user&action=view");
+            }
+        }
+        //for update a password
+        if (isset($_POST["id"]) && isset($_POST["mot_de_passe"]) && isset($_POST["ancien_mot_de_passe"])) {
+            $id_u = htmlspecialchars($_POST["id"]);
+            $mot_de_passe = htmlspecialchars($_POST["mot_de_passe"]);
+            $ancien_mot_de_passe = htmlspecialchars($_POST["ancien_mot_de_passe"]);
+            try {
+                $updatePassword = $userDataAccess->updatePassword($id_u, $ancien_mot_de_passe, $mot_de_passe);
+                if ($updatePassword) {
+                    setcookie("successMessage", "Le mot de passe a été modifé avec succès", time() + (100000), "/");
+                    header("location: ./index.php?uc=user&action=view");
+                } else {
+                    setcookie("errorMessage", "L'ancien mot de passe n'est pas valide", time() + (100000), "/");
+                    header("location: ./index.php?uc=user&action=view");
+                }
+            } catch (Exception $e) {
+                $userDataAccess->writeLog($e, 'userErrorLogs.log');
+                setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
+                header("location: ./index.php?uc=user&action=view");
             }
         }
         break;

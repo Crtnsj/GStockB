@@ -27,7 +27,6 @@ class User
         $this->db->query($query);
         $this->db->bind(':email', $email);
         $result = $this->db->resultSet();
-        var_dump($result);
         if ($result) {
             $user = $result[0];
             if (password_verify($password, $user->mot_de_passe) && $user->active == '1') {
@@ -66,7 +65,7 @@ class User
             $_SESSION['messageBox'] = "errorUSer";
         }
 
-        $query = "SELECT id_u, nom_u, prenom_u, email_u, active, id_role FROM utilisateurs ORDER BY $column $order";
+        $query = "SELECT id_u, nom_u, prenom_u, email_u, active, id_role FROM utilisateurs ORDER BY $column $order, id_u DESC";
         $this->db->query($query);
         $result = $this->db->resultSet();
 
@@ -212,5 +211,32 @@ class User
         $this->db->bind(':id_role', $id_role);
         $this->db->bind(':email_u', $email_u);
         $this->db->execute();
+    }
+    public function updatePassword($id_u, $ancien_mot_de_passe, $mot_de_passe)
+    {
+        $verifOldPassword = self::verifOldPassword($id_u, $ancien_mot_de_passe);
+        if ($verifOldPassword) {
+            $hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+            $query = "UPDATE `utilisateurs` SET `mot_de_passe` = :hash WHERE `utilisateurs`.`id_u` = :id_u;";
+            $this->db->query($query);
+            $this->db->bind(':id_u', $id_u);
+            $this->db->bind(':hash', $hash);
+            $this->db->execute();
+        }
+    }
+    private function verifOldPassword($id_u, $password)
+    {
+        $query = "SELECT `mot_de_passe` FROM utilisateurs WHERE id_u = :id_u";
+        $this->db->query($query);
+        $this->db->bind(':id_u', $id_u);
+        $result = $this->db->resultSet();
+        if ($result) {
+            $user = $result[0];
+            if (password_verify($password, $user->mot_de_passe)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

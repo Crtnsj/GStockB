@@ -3,7 +3,7 @@
 $action = $_GET["action"];
 
 if (empty($_GET["filter"])) {
-    $orders = $orderDataAccess->handleFilter("id_co-ASC");
+    $orders = $orderDataAccess->handleFilter("id_co-DESC");
 } else {
     $filter = $_GET["filter"];
     $orders = $orderDataAccess->handleFilter($filter);

@@ -19,7 +19,13 @@
                 <td><?php echo $user->prenom_u; ?></td>
                 <td><?php echo $user->email_u; ?></td>
                 <td><?php echo $user->active == 1 ? "Activé" : "Desactivé"; ?></td>
-                <td><?php echo $user->id_role; ?></td>
+                <td><?php if ($user->id_role == 1) {
+                        echo "Super Administrateur";
+                    } else if ($user->id_role == 2) {
+                        echo "Administrateur";
+                    } else if ($user->id_role == 3) {
+                        echo "Utilisateur";
+                    } ?></td>
                 <?php
                 echo $user->id_role == 1 ? "<td></td>" :
                     "<td>

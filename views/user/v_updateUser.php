@@ -25,8 +25,8 @@
         <input type="submit" value="Valider">
     </form>
     <form action="index.php?uc=user&action=validForm" method="post">
+        <input type="hidden" name="id" value="<?php echo $targetedUser->id_u; ?>">
         <h2>Changer le mot de passe</h2>
-
         <div>
             <p>Ancien mot de passe</p>
             <input type="password" name="ancien_mot_de_passe" />

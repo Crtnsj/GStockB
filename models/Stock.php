@@ -35,7 +35,7 @@ class Stock
             $_SESSION['messageBox'] = "errorStock";
         }
 
-        $query = "SELECT * FROM stocks ORDER BY $column $order";
+        $query = "SELECT * FROM stocks ORDER BY $column $order, id_st DESC";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;

@@ -5,25 +5,25 @@
         <div class="signupForm__names">
             <div>
                 <p>Nom </p>
-                <input type="text" name="nom_u" id="">
+                <input type="text" name="nom_u">
             </div>
             <div>
                 <p>Prenom</p>
-                <input type="text" name="prenom_u" id="">
+                <input type="text" name="prenom_u">
             </div>
         </div>
         <div>
             <p>Role</p>
-            <input type="number" name="id_role" id=""> <?php //todo : create a comboBox for roles
-                                                        ?>
+            <input type="number" name="id_role"> <?php //todo : create a comboBox for roles
+                                                    ?>
         </div>
         <div>
             <p>Email</p>
-            <input type="email" name="email_u" id="">
+            <input type="email" name="email_u">
         </div>
         <div>
             <p>Mot de passe</p>
-            <input type="password" name="mot_de_passe" id="" />
+            <input type="password" name="mot_de_passe" />
         </div>
         <input type="submit" value="Valider">
     </form>

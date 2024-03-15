@@ -4,12 +4,12 @@
             <form action="./index.php?uc=validLoginForm" method="post" class="loginForm--form">
                 <div>
                     <p>Email :</p>
-                    <input type="email" name="email" id="" class="border border-black border-solid">
+                    <input type="email" name="email" class="border border-black border-solid">
 
                 </div>
                 <div>
                     <p>Mot de passe :</p>
-                    <input type="password" name="password" id="">
+                    <input type="password" name="password">
                 </div>
                 <input type="submit" value="Se Connecter">
             </form>

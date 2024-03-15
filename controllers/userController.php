@@ -19,9 +19,14 @@ switch ($action) {
         include "./views/user/v_createUser.php";
         include "./views/user/v_user.php";
         break;
+    case "update":
+        $targetedUser = $userDataAccess->getUserById($_GET["id"]);
+        include "./views/user/v_updateUser.php";
+        include "./views/user/v_user.php";
+        break;
     case "validForm":
         //for create account
-        if (isset($_POST["nom_u"]) && isset($_POST["prenom_u"])) {
+        if (isset($_POST["nom_u"]) && isset($_POST["prenom_u"]) && isset($_POST["id_role"]) && isset($_POST["email_u"]) && isset($_POST["mot_de_passe"])) {
             $nom_u = htmlspecialchars($_POST["nom_u"]);
             $prenom_u = htmlspecialchars($_POST["prenom_u"]);
             $id_role = htmlspecialchars($_POST["id_role"]);
@@ -63,7 +68,25 @@ switch ($action) {
                 header("location: ./index.php?uc=stock&action=view");
             }
         }
+        // for upadate an user
+        if (isset($_POST["id"]) && isset($_POST["nom_u"]) && isset($_POST["prenom_u"]) && isset($_POST["id_role"]) && isset($_POST["email_u"])) {
+            $id_u = htmlspecialchars($_POST["id"]);
+            $nom_u = htmlspecialchars($_POST["nom_u"]);
+            $prenom_u = htmlspecialchars($_POST["prenom_u"]);
+            $id_role = htmlspecialchars($_POST["id_role"]);
+            $email_u = htmlspecialchars($_POST["email_u"]);
+            try {
+                $userDataAccess->updateUser($id_u, $nom_u, $prenom_u, $id_role, $email_u);
+                header("location: ./index.php?uc=user&action=view");
+            } catch (Exception $e) {
+                $userDataAccess->writeLog($e, 'userErrorLogs.log');
+                setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
+                header("location: ./index.php?uc=stock&action=view");
+            }
+        }
         break;
+
+
 
 
     case "disable":

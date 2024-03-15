@@ -194,4 +194,23 @@ class User
         }
         return false;
     }
+    public function getUserByID($id_u)
+    {
+        $query = "SELECT id_u, nom_u, prenom_u, email_u, id_role FROM utilisateurs WHERE id_u = :id_u";
+        $this->db->query($query);
+        $this->db->bind(':id_u', $id_u);
+        $result = $this->db->resultSet();
+        return $result[0];
+    }
+    public function updateUser($id_u, $nom_u, $prenom_u, $id_role, $email_u)
+    {
+        $query = "UPDATE `utilisateurs` SET `nom_u` = :nom_u, `prenom_u` = :prenom_u, `id_role` = :id_role, `email_u`= :email_u WHERE `utilisateurs`.`id_u` = :id_u";
+        $this->db->query($query);
+        $this->db->bind(':id_u', $id_u);
+        $this->db->bind(':nom_u', $nom_u);
+        $this->db->bind(':prenom_u', $prenom_u);
+        $this->db->bind(':id_role', $id_role);
+        $this->db->bind(':email_u', $email_u);
+        $this->db->execute();
+    }
 }

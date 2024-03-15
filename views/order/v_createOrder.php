@@ -21,7 +21,7 @@
                             <?php } ?>
                         </select>
                     </td>
-                    <td><input type="number" name="qte1" id="" value="0"></td>
+                    <td><input type="number" name="qte1" value="0"></td>
                 </tr>
             </tbody>
         </table>

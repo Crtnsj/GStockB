@@ -47,10 +47,13 @@ switch ($action) {
                 if ($orderStatut == "en_attente") {
                     $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_POST["id"]));
                     $type_co = $orderDataAccess->getTypeCo(htmlspecialchars($_POST["id"]));
-                    for ($i = 0; $i < count($orderDetails); $i++) {
-                        $stockDataAccess->updateQteOfStock($orderDetails[$i]->id_st, $orderDetails[$i]->quantite_details, $type_co);
+                    $stockUpdate = $stockDataAccess->updateQteOfStock($orderDetails, $type_co);
+                    if ($stockUpdate) {
+                        $orderDataAccess->validOrder(htmlspecialchars($_POST["id"]));
+                        setcookie("successMessage", "La commande a bien été validée", time() + (100000), "/");
+                    } else {
+                        setcookie("errorMessage", "Le stock est insuffisant", time() + (100000), "/");
                     }
-                    $orderDataAccess->validOrder(htmlspecialchars($_POST["id"]));
                     header("location: index.php?uc=order&action=view");
                 } else {
                     setcookie("errorMessage", "La commande n'est plus en attente", time() + (100000), "/");
@@ -78,7 +81,7 @@ switch ($action) {
             }
         }
         //for create an order 
-        else if (isset($_POST["type_co"]) && $_POST["stock1"] && isset($_POST["qte1"]) && isset($_POST["numberOfStocks"])) {
+        if (isset($_POST["type_co"]) && $_POST["stock1"] && isset($_POST["qte1"]) && isset($_POST["numberOfStocks"])) {
             $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]);
             $selectedStocks = array();
 
@@ -112,10 +115,11 @@ switch ($action) {
                 setcookie("errorMessage", "Vous ne pouvez pas créer une commande qui contient deux fois le meme stock", time() + (100000), "/");
                 header("location: index.php?uc=order&action=create");
             }
-        } else {
-            setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
-            header("location: index.php?uc=order&action=view");
         }
+        // } else {
+        //     setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
+        //     header("location: index.php?uc=order&action=view");
+        // }
 
         break;
 }

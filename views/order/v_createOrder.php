@@ -5,7 +5,8 @@
             <option value="entrée">Entrée</option>
             <option value="sortie">Sortie</option>
         </select>
-        <table id="stockTable">
+        <table id="stockTable" class="createOrder_table">
+            <button type="button" onclick="addRow()">Ajouter une ligne</button>
             <thead>
                 <tr>
                     <th>Stock</th>
@@ -26,14 +27,13 @@
             </tbody>
         </table>
         <input type="hidden" name="numberOfStocks" id="numberOfStocks" value="1">
-        <button type="button" onclick="addRow()">Ajouter une ligne</button>
         <input type="submit" value="Valider la création">
     </form>
 </div>
 
 <script>
     let rowCount = 2;
-    const stocks = <?php echo json_encode($stocks); ?>; // Récupérer les stocks depuis PHP
+    const stocks = <?php echo json_encode($stocks); ?>;
 
     function addRow() {
         const table = document.getElementById("stockTable");

@@ -122,7 +122,7 @@ class Stock
      */
     public function getStocksNames()
     {
-        $query = "SELECT nom_st FROM stocks";
+        $query = "SELECT nom_st FROM stocks ORDER BY nom_st ASC";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
@@ -185,36 +185,31 @@ class Stock
         return $result;
     }
 
-    /**
-     * Update the quantity of a stock based on the given parameters.
-     *
-     * @param int $id_st The ID of the stock.
-     * @param int $quantite_details The quantity details to update.
-     * @param string $type_co The type of the update ("entrée" or "sortie").
-     * 
-     * @return void
-     */
-    public function updateQteOfStock($id_st, $quantite_details, $type_co)
+    public function updateQteOfStock($orderDetails, $type_co)
     {
-        if ($type_co == "entrée") {
-            $qteOfStock = $this->getQteOfStock($id_st);
-            $finalQte = $qteOfStock[0]->quantite_st + $quantite_details;
-            $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
-            $this->db->query($query);
-            $this->db->bind(':id_st', $id_st);
-            $this->db->bind(':quantite_st', $finalQte);
-            $this->db->execute();
-        } else if ($type_co == "sortie") {
-            $qteOfStock = $this->getQteOfStock($id_st);
-            if ($qteOfStock > $quantite_details) {
-                $finalQte = $qteOfStock[0]->quantite_st - $quantite_details;
+        foreach ($orderDetails as $orderDetail) {
+            if ($type_co == "entrée") {
+                $qteOfStock = $this->getQteOfStock($orderDetail->id_st);
+                $finalQte = $qteOfStock[0]->quantite_st + $orderDetail->quantite_details;
                 $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
                 $this->db->query($query);
-                $this->db->bind(':id_st', $id_st);
+                $this->db->bind(':id_st', $orderDetail->id_st);
                 $this->db->bind(':quantite_st', $finalQte);
                 $this->db->execute();
-            } else {
-                $_SESSION['messageBox'] = "errorStock"; //todo handle message
+                return true;
+            } else if ($type_co == "sortie") {
+                $qteOfStock = $this->getQteOfStock($orderDetail->id_st)[0]->quantite_st;
+                if ($qteOfStock > $orderDetail->quantite_details) {
+                    $finalQte = $qteOfStock[0]->quantite_st - $orderDetail->quantite_details;
+                    $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
+                    $this->db->query($query);
+                    $this->db->bind(':id_st', $orderDetail->id_st);
+                    $this->db->bind(':quantite_st', $finalQte);
+                    $this->db->execute();
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
     }

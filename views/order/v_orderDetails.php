@@ -1,6 +1,6 @@
-<div class="popUpBox--remove popUpBox">
+<div class="popUpBox--view popUpBox">
     <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
-    <table class="table">
+    <table class="viewOrderDetails table">
         <thead>
             <tr>
                 <th>Stock</th>

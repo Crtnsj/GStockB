@@ -13,7 +13,6 @@
   }
   tr:nth-child(even) {
     background-color: lighten($gray, $amount: 2);
-    // background-color: lighten($gray, 10);
   }
   td:first-child {
     padding-left: 4px;
@@ -87,6 +86,22 @@
       }
     }
   }
+  &.viewOrderDetails {
+    width: 90%;
+    th {
+      border-bottom: 1px solid black;
+    }
+    & tr {
+      &:hover {
+        outline: unset;
+        border: unset;
+        background-color: unset;
+      }
+      &:nth-child(even) {
+        background-color: $blue3;
+      }
+    }
+  }
 }
 .btnAdd {
   display: flex;
@@ -101,5 +116,14 @@
   }
   &:hover {
     background-color: darken($gray, 10);
+  }
+}
+
+.createOrder_table {
+  td {
+    padding: 4px;
+  }
+  & th {
+    text-align: left;
   }
 }

@@ -27,7 +27,8 @@
   &--remove {
     animation: goDown 0.5s both ease-in-out;
   }
-  &--create {
+  &--create,
+  &--view {
     width: 30vw;
     display: flex;
     align-items: center;

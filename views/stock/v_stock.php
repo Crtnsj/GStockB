@@ -21,14 +21,17 @@
                 <td><?php echo $stock->nom_st; ?></td>
                 <td><?php echo $stock->description_st; ?></td>
                 <td><?php echo $stock->quantite_st; ?></td>
-                <td><?php if ($stock->type_st == "medicament") {
-                        echo "<ti class='ti ti-pill'></ti>";
-                    } elseif ($stock->type_st == "materiel") {
-                        echo "<ti class='ti ti-face-mask'></ti>";
-                    } elseif ($stock->type_st == "autre") {
-                        echo "<ti class='ti ti-nurse'></ti>";
-                    }
-                    ?></td>
+                <td class='type'>
+                    <div><?php if ($stock->type_st == "medicament") {
+                                echo "<ti class='ti ti-pill'></ti> <p>Médicament</p>";
+                            } elseif ($stock->type_st == "materiel") {
+                                echo "<ti class='ti ti-face-mask'></ti> <p>Matériel</p>";
+                            } elseif ($stock->type_st == "autre") {
+                                echo "<ti class='ti ti-nurse'></ti><p>Autre</p>";
+                            }
+                            ?>
+                    </div>
+                </td>
                 <td>
                     <a href="./index.php?uc=stock&action=update&id=<?php echo $stock->id_st; ?>"><i class="ti ti-edit"></i></a>
                     <a href="./index.php?uc=stock&action=delete&id=<?php echo $stock->id_st; ?>"><i class="ti ti-trash-x"></i></a>

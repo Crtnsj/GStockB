@@ -11,6 +11,10 @@
       padding-left: 4px;
     }
   }
+  tr:nth-child(even) {
+    background-color: lighten($gray, $amount: 2);
+    // background-color: lighten($gray, 10);
+  }
   td:first-child {
     padding-left: 4px;
     border-top-left-radius: 0.5rem;
@@ -32,9 +36,8 @@
   }
   & td {
     max-width: 15rem;
-    border: none;
     height: 2rem;
-    padding: 2px 4px 2px 4px;
+    padding: 4px;
     & .ti {
       font-size: 1.5rem;
     }
@@ -58,6 +61,16 @@
     & .ti-upload,
     .ti-x {
       color: #f79d7c;
+    }
+    &.type {
+      & div {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.5rem;
+      }
     }
   }
   &.table--dashboard {

@@ -43,7 +43,8 @@
       & [type="password"],
       input[type="email"],
       input[type="number"],
-      input[type="submit"] {
+      input[type="submit"],
+      select {
         width: 100%;
         border-radius: 0.5rem;
       }

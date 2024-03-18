@@ -18,7 +18,7 @@
                 <td><?php echo $user->nom_u; ?></td>
                 <td><?php echo $user->prenom_u; ?></td>
                 <td><?php echo $user->email_u; ?></td>
-                <td><?php echo $user->active == 1 ? "Activé" : "Desactivé"; ?></td>
+                <td><i class="ti <?php echo $user->active == 1 ? 'ti-check' : 'ti-x'; ?>"></i></td>
                 <td><?php if ($user->id_role == 1) {
                         echo "Super Administrateur";
                     } else if ($user->id_role == 2) {

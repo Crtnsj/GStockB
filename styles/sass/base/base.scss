@@ -16,7 +16,8 @@ body {
   font-variation-settings: "slnt" 0;
 }
 
-input {
+input,
+select {
   height: 2rem;
   border-radius: 5rem;
   border: solid 1px $gray;

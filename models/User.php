@@ -65,7 +65,7 @@ class User
             $_SESSION['messageBox'] = "errorUSer";
         }
 
-        $query = "SELECT id_u, nom_u, prenom_u, email_u, active, id_role FROM utilisateurs ORDER BY $column $order, id_u DESC";
+        $query = "SELECT id_u, nom_u, prenom_u, email_u, active, id_role FROM utilisateurs ORDER BY $column $order";
         $this->db->query($query);
         $result = $this->db->resultSet();
 
@@ -222,6 +222,7 @@ class User
             $this->db->bind(':id_u', $id_u);
             $this->db->bind(':hash', $hash);
             $this->db->execute();
+            return true;
         }
     }
     private function verifOldPassword($id_u, $password)
@@ -238,5 +239,13 @@ class User
                 return false;
             }
         }
+    }
+    public function translateIDtoEmail($id_u)
+    {
+        $query = "SELECT email_u FROM utilisateurs WHERE `utilisateurs`.`id_u` = :id_u";
+        $this->db->query($query);
+        $this->db->bind(':id_u', $id_u);
+        $result = $this->db->resultSet();
+        return $result[0]->email_u;
     }
 }

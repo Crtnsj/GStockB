@@ -51,6 +51,14 @@
     .ti-user-check {
       color: #50be0e;
     }
+    & .ti-download,
+    .ti-check {
+      color: #9677f2;
+    }
+    & .ti-upload,
+    .ti-x {
+      color: #f79d7c;
+    }
   }
   &.table--dashboard {
     width: 90%;

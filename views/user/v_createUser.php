@@ -14,8 +14,10 @@
         </div>
         <div>
             <p>Role</p>
-            <input type="number" name="id_role"> <?php //todo : create a comboBox for roles
-                                                    ?>
+            <select name="id_role" id="">
+                <option value="3">Utilisateur</option>
+                <option value="2">Administrateur</option>
+            </select>
         </div>
         <div>
             <p>Email</p>

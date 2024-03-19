@@ -250,7 +250,7 @@ class Stock
      */
     public function getPopularStocks()
     {
-        $query = "SELECT id_st, COUNT(id_st) AS count FROM details_commande GROUP BY id_st ORDER BY count DESC LIMIT 5";
+        $query = "SELECT id_st, COUNT(id_st) AS count FROM details_commande GROUP BY id_st ORDER BY count DESC LIMIT 15";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;
@@ -263,7 +263,7 @@ class Stock
      */
     public function getLowStocks()
     {
-        $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT 10";
+        $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT 15";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;

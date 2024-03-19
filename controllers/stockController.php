@@ -56,7 +56,7 @@ switch ($action) {
             }
         }
         //for update a stock 
-        elseif (isset($_POST["id"], $_POST["nom_st"], $_POST["description_st"], $_POST["type_st"])) {
+        elseif (isset($_POST["id"]) && isset($_POST["nom_st"]) && isset($_POST["description_st"]) && isset($_POST["type_st"])) {
             $id_st = htmlspecialchars($_POST["id"]);
             $nom_st = htmlspecialchars($_POST["nom_st"]);
             $description_st = htmlspecialchars($_POST["description_st"]);
@@ -71,7 +71,7 @@ switch ($action) {
             }
         }
         //for create a stock
-        elseif (!isset($_POST["id"], $_POST["nom_st"], $_POST["description_st"], $_POST["quantite_st"], $_POST["type_st"])) {
+        elseif (!isset($_POST["id"]) && isset($_POST["nom_st"]) && isset($_POST["description_st"]) && isset($_POST["quantite_st"]) && isset($_POST["type_st"])) {
             $nom_st = htmlspecialchars($_POST["nom_st"]);
             $description_st = htmlspecialchars($_POST["description_st"]);
             $quantite_st = htmlspecialchars($_POST["quantite_st"]);

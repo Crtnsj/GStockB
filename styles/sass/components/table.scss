@@ -81,9 +81,19 @@
       padding: 1rem;
       &:hover {
         outline: unset;
-        border-radius: 0;
+        border: unset;
         background-color: unset;
       }
+      &:nth-child(even) {
+        background-color: unset;
+      }
+    }
+    & td,
+    th {
+      padding: 0 4px 0 4px;
+    }
+    & th {
+      text-wrap: nowrap;
     }
   }
   &.viewOrderDetails {

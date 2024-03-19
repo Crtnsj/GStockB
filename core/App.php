@@ -24,7 +24,7 @@ switch ($uc) {
             $popularStocks = $stockDataAccess->getPopularStocks();
             $lowStocks = $stockDataAccess->getLowStocks();
             $lastOrders = $orderDataAccess->getLastOrders();
-            $orderList = $orderDataAccess->handleFilter("id_co-ASC");
+            $orderList = $orderDataAccess->handleFilter("id_co-DESC");
             include "./views/v_home.php";
         } else {
             setcookie("errorMessage", "Vous n'etes pas connecté", time() + (100000), "/");

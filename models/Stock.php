@@ -200,7 +200,7 @@ class Stock
             } else if ($type_co == "sortie") {
                 $qteOfStock = $this->getQteOfStock($orderDetail->id_st)[0]->quantite_st;
                 if ($qteOfStock > $orderDetail->quantite_details) {
-                    $finalQte = $qteOfStock[0]->quantite_st - $orderDetail->quantite_details;
+                    $finalQte = $qteOfStock - $orderDetail->quantite_details;
                     $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
                     $this->db->query($query);
                     $this->db->bind(':id_st', $orderDetail->id_st);

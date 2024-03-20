@@ -13,29 +13,29 @@ if (empty($_GET["filter"])) {
 
 switch ($action) {
     case "view":
-        include "./views/order/v_order.php";
+        include "../src/views/order/v_order.php";
         break;
 
     case "create":
         $stocks = $stockDataAccess->getStocksNames();
-        include "./views/order/v_createOrder.php";
-        include "./views/order/v_order.php";
+        include "../src/views/order/v_createOrder.php";
+        include "../src/views/order/v_order.php";
         break;
 
     case "viewDetails":
         $orderDetails = $orderDataAccess->getOrdersDetails(htmlspecialchars($_GET["id_co"]));
-        include "./views/order/v_orderDetails.php";
-        include "./views/order/v_order.php";
+        include "../src/views/order/v_orderDetails.php";
+        include "../src/views/order/v_order.php";
         break;
 
     case "validOrder":
-        include "./views/order/v_validOrder.php";
-        include "./views/order/v_order.php";
+        include "../src/views/order/v_validOrder.php";
+        include "../src/views/order/v_order.php";
         break;
 
     case "rejectOrder":
-        include "./views/order/v_rejectOrder.php";
-        include "./views/order/v_order.php";
+        include "../src/views/order/v_rejectOrder.php";
+        include "../src/views/order/v_order.php";
         break;
 
     case "validForm":
@@ -116,10 +116,6 @@ switch ($action) {
                 header("location: index.php?uc=order&action=create");
             }
         }
-        // } else {
-        //     setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
-        //     header("location: index.php?uc=order&action=view");
-        // }
 
         break;
 }

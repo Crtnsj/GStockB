@@ -13,20 +13,20 @@ if (empty($_GET["filter"])) {
 
 switch ($action) {
     case "view":
-        include "./views/stock/v_stock.php";
+        include "../src/views/stock/v_stock.php";
         break;
 
     case "create":
-        include "views/stock/v_createStock.php";
-        include "./views/stock/v_stock.php";
+        include "../src/views/stock/v_createStock.php";
+        include "../src/views/stock/v_stock.php";
         break;
 
     case "update":
         if (isset($_GET["id"])) {
             $id = htmlspecialchars($_GET["id"]);
             $targetedStock  = $stockDataAccess->getStockByID($id);
-            include("views/stock/v_updateStock.php");
-            include "./views/stock/v_stock.php";
+            include "../src/views/stock/v_updateStock.php";
+            include "../src/views/stock/v_stock.php";
         } else {
             setcookie("errorMessage", "Aucun stock n'est selectionné", time() + (100000), "/");
             header("location: ./index.php?uc=stock&action=view");
@@ -36,8 +36,8 @@ switch ($action) {
     case "delete":
         if (isset($_GET["id"])) {
             $id = htmlspecialchars($_GET["id"]);
-            include "views/stock/v_deleteStock.php";
-            include "./views/stock/v_stock.php";
+            include "../src/views/stock/v_deleteStock.php";
+            include "../src/views/stock/v_stock.php";
         } else {
             setcookie("errorMessage", "Aucun stock n'est selectionné", time() + (100000), "/");
             header("location: ./index.php?uc=stock&action=view");

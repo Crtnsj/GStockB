@@ -1,8 +1,8 @@
 <?php
-require_once("./core/Database.php");
-require_once("./models/User.php");
-require_once("./models/Stock.php");
-require_once("./models/Order.php");
+require_once("../src/core/Database.php");
+require_once("../src/models/User.php");
+require_once("../src/models/Stock.php");
+require_once("../src/models/Order.php");
 
 $orderDataAccess = new Order();
 $stockDataAccess = new Stock();
@@ -13,7 +13,7 @@ $uc = empty($_GET["uc"]) ? "login" : $_GET["uc"];
 
 switch ($uc) {
     case "login":
-        include "./views/user/v_login.php";
+        include "../src/views/user/v_login.php";
         break;
     case "home":
         if (isset($_SESSION["id_u"])) {
@@ -25,7 +25,7 @@ switch ($uc) {
             $lowStocks = $stockDataAccess->getLowStocks();
             $lastOrders = $orderDataAccess->getLastOrders();
             $orderList = $orderDataAccess->handleFilter("id_co-DESC");
-            include "./views/v_home.php";
+            include "../src/views/v_home.php";
         } else {
             setcookie("errorMessage", "Vous n'etes pas connecté", time() + (100000), "/");
             header("location: ./index.php");
@@ -36,7 +36,7 @@ switch ($uc) {
     case "user":
         if (isset($_SESSION["id_u"])) {
             if ($_SESSION["id_role"] == 1) {
-                include "./controllers/userController.php";
+                include "../src/controllers/userController.php";
             } else {
                 setcookie("errorMessage", "Vous n'avez pas les droits suffisant", time() + (100000), "/");
                 header("location: ./index.php?uc=home");
@@ -48,7 +48,7 @@ switch ($uc) {
         break;
     case "stock":
         if (isset($_SESSION["id_u"])) {
-            include "./controllers/stockController.php";
+            include "../src/controllers/stockController.php";
         } else {
             setcookie("errorMessage", "Vous n'etes pas connecté", time() + (100000), "/");
             header("location: ./index.php");
@@ -56,7 +56,7 @@ switch ($uc) {
         break;
     case "order":
         if (isset($_SESSION["id_u"])) {
-            include "./controllers/orderController.php";
+            include "../src/controllers/orderController.php";
         } else {
             setcookie("errorMessage", "Vous n'etes pas connecté", time() + (100000), "/");
             header("location: ./index.php");

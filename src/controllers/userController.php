@@ -13,16 +13,37 @@ $action = $_GET["action"];
 
 switch ($action) {
     case "view":
-        include "./views/user/v_user.php";
+        include "../src/views/user/v_user.php";
         break;
     case "create":
-        include "./views/user/v_createUser.php";
-        include "./views/user/v_user.php";
+        include "../src/views/user/v_createUser.php";
+        include "../src/views/user/v_user.php";
         break;
     case "update":
         $targetedUser = $userDataAccess->getUserById($_GET["id"]);
-        include "./views/user/v_updateUser.php";
-        include "./views/user/v_user.php";
+        include "../src/views/user/v_updateUser.php";
+        include "../src/views/user/v_user.php";
+        break;
+    case "disable":
+        if ($_GET["id"] != 2) {
+            $users = $userDataAccess->handleFilter("id_u-ASC");
+            include "../src/views/user/v_disableUser.php";
+            include "../src/views/user/v_user.php";
+        } else {
+            setcookie("errorMessage", "L'administrateur ne peut être desactivé", time() + (100000), "/");
+            header("Location: index.php?uc=user&action=view");
+        }
+        break;
+
+    case "enable":
+        if ($_GET["id"] != 2) {
+            $users = $userDataAccess->handleFilter("id_u-ASC");
+            include "../src/views/user/v_enableUser.php";
+            include "../src/views/user/v_user.php";
+        } else {
+            setcookie("errorMessage", "L'administrateur ne peut être activé", time() + (100000), "/");
+            header("Location: index.php?uc=user&action=view");
+        }
         break;
     case "validForm":
         //for create account
@@ -103,31 +124,6 @@ switch ($action) {
                 setcookie("errorMessage", "Une erreur inconnue s'est produite", time() + (100000), "/");
                 header("location: ./index.php?uc=user&action=view");
             }
-        }
-        break;
-
-
-
-
-    case "disable":
-        if ($_GET["id"] != 2) {
-            $users = $userDataAccess->handleFilter("id_u-ASC");
-            include "./views/user/v_disableUser.php";
-            include "./views/user/v_user.php";
-        } else {
-            setcookie("errorMessage", "L'administrateur ne peut être desactivé", time() + (100000), "/");
-            header("Location: index.php?uc=user&action=view");
-        }
-        break;
-
-    case "enable":
-        if ($_GET["id"] != 2) {
-            $users = $userDataAccess->handleFilter("id_u-ASC");
-            include "./views/user/v_enableUser.php";
-            include "./views/user/v_user.php";
-        } else {
-            setcookie("errorMessage", "L'administrateur ne peut être activé", time() + (100000), "/");
-            header("Location: index.php?uc=user&action=view");
         }
         break;
 }

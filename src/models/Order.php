@@ -196,7 +196,7 @@ class Order
      */
     public function getLastOrders()
     {
-        $query = "SELECT id_co, date_co FROM commandes ORDER BY date_co DESC LIMIT 10";
+        $query = "SELECT id_co, date_co FROM commandes ORDER BY date_co DESC LIMIT 6";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;

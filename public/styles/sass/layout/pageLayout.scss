@@ -43,5 +43,9 @@
   position: relative;
   left: 14rem;
   top: 1rem;
-  max-width: 83vw;
+  width: 83vw;
+  &--dashboard {
+    display: flex;
+    justify-content: center;
+  }
 }

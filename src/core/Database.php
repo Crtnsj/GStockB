@@ -1,38 +1,57 @@
 <?php
+
 class Database
 {
-    private $host = 'localhost';
-    private $dbname = 'GStockB';
-    private $username = 'root';
-    private $password = '';
-    private $dbHandler; // destine a contenir la connexion a la base de donnees (une instance de pdo)
-    private $statement;
-    private $error;
+    private $host = 'localhost'; // Database server address
+    private $dbname = 'GStockB'; // Database name
+    private $username = 'root'; // Username for database connection
+    private $password = ''; // Password for database connection
+    private $dbHandler; // PDO connection handler
+    private $statement; // PDO prepared statement
+    private $error; // Error message in case of connection failure or query errors
 
-    // constructeur de la classe
+    /**
+     * Constructor method.
+     * Establishes a connection to the database using PDO.
+     */
     public function __construct()
     {
-        // Set DSN
+        //créer la chaine de connexion
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
 
-        // Create a new PDO instance
         try {
+            //créer un nouvel objet PDO avec les informations de connexions et les parametres 
+            //neccessaires
             $this->dbHandler = new PDO($dsn, $this->username, $this->password, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
         }
     }
-    //prepare la requete
-    public function  query($sql)
+
+    /**
+     * Executes a database query.
+     * Prepares the statement and returns it.
+     *
+     * @param string $sql The SQL query to execute.
+     * @return PDOStatement The prepared statement.
+     */
+    public function query($sql)
     {
         return $this->statement = $this->dbHandler->prepare($sql);
     }
-    // definit les parametres de requete
+
+    /**
+     * Binds a value to a parameter in the prepared statement.
+     *
+     * @param string $parameter The parameter placeholder in the SQL query.
+     * @param mixed $value The value to bind.
+     * @param int|null $type The data type of the parameter (default: PDO::PARAM_STR).
+     */
     public function bind($parameter, $value, $type = null)
     {
         switch (is_null($type)) {
@@ -50,12 +69,22 @@ class Database
         }
         $this->statement->bindValue($parameter, $value, $type);
     }
-    //execute
+
+    /**
+     * Executes the prepared statement.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function execute()
     {
         return $this->statement->execute();
     }
-    //execute et renvoie le resultat
+
+    /**
+     * Fetches all rows from the result set of the executed query.
+     *
+     * @return array The result set as an array of objects.
+     */
     public function resultSet()
     {
         $this->execute();

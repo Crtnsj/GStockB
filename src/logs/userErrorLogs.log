@@ -1,0 +1,28 @@
+[2024-03-13 11:12:15] PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php:56
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php(56): PDOStatement->execute()
+#1 /Applications/XAMPP/xamppfiles/htdocs/GStockB/models/User.php(102): Database->execute()
+#2 /Applications/XAMPP/xamppfiles/htdocs/GStockB/controllers/userController.php(47): User->disableUser('11')
+#3 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/App.php(39): include('/Applications/X...')
+#4 /Applications/XAMPP/xamppfiles/htdocs/GStockB/index.php(7): require('/Applications/X...')
+#5 {main}
+[2024-03-14 09:49:04] PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php:56
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php(56): PDOStatement->execute()
+#1 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php(61): Database->execute()
+#2 /Applications/XAMPP/xamppfiles/htdocs/GStockB/models/User.php(190): Database->resultSet()
+#3 /Applications/XAMPP/xamppfiles/htdocs/GStockB/models/User.php(117): User->compareUsersEmails('t@t')
+#4 /Applications/XAMPP/xamppfiles/htdocs/GStockB/controllers/userController.php(31): User->createUser('dgfds', 'dsf', 't@t', 'hjdsgf', '2')
+#5 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/App.php(39): include('/Applications/X...')
+#6 /Applications/XAMPP/xamppfiles/htdocs/GStockB/index.php(7): require('/Applications/X...')
+#7 {main}
+[2024-03-14 09:51:19] PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php:56
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php(56): PDOStatement->execute()
+#1 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/Database.php(61): Database->execute()
+#2 /Applications/XAMPP/xamppfiles/htdocs/GStockB/models/User.php(191): Database->resultSet()
+#3 /Applications/XAMPP/xamppfiles/htdocs/GStockB/models/User.php(117): User->compareUsersEmails('t@t')
+#4 /Applications/XAMPP/xamppfiles/htdocs/GStockB/controllers/userController.php(31): User->createUser('dgfds', 'dsf', 't@t', 'hjdsgf', '2')
+#5 /Applications/XAMPP/xamppfiles/htdocs/GStockB/core/App.php(39): include('/Applications/X...')
+#6 /Applications/XAMPP/xamppfiles/htdocs/GStockB/index.php(7): require('/Applications/X...')
+#7 {main}

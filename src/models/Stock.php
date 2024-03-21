@@ -176,35 +176,32 @@ class Stock
      * @param int $id_st The ID of the stock.
      * @return array An array containing the quantity of the stock.
      */
-    public function getQteOfStock($id_st)
+    private function getQteOfStock($id_st)
     {
         $query = "SELECT quantite_st FROM stocks WHERE id_st = :id_st";
         $this->db->query($query);
         $this->db->bind(':id_st', $id_st);
         $result = $this->db->resultSet();
-        return $result;
+        return $result[0]->quantite_st;
     }
 
     public function updateQteOfStock($orderDetails, $type_co)
     {
         foreach ($orderDetails as $orderDetail) {
             if ($type_co == "entrée") {
-                $qteOfStock = $this->getQteOfStock($orderDetail->id_st);
-                $finalQte = $qteOfStock[0]->quantite_st + $orderDetail->quantite_details;
-                $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
+                $query = "UPDATE `stocks` SET `quantite_st` = `quantite_st` + :quantite_st WHERE `stocks`.`id_st` = :id_st";
                 $this->db->query($query);
                 $this->db->bind(':id_st', $orderDetail->id_st);
-                $this->db->bind(':quantite_st', $finalQte);
+                $this->db->bind(':quantite_st', $orderDetail->quantite_details);
                 $this->db->execute();
                 return true;
             } else if ($type_co == "sortie") {
-                $qteOfStock = $this->getQteOfStock($orderDetail->id_st)[0]->quantite_st;
+                $qteOfStock = self::getQteOfStock($orderDetail->id_st);
                 if ($qteOfStock > $orderDetail->quantite_details) {
-                    $finalQte = $qteOfStock - $orderDetail->quantite_details;
-                    $query = "UPDATE `stocks` SET `quantite_st` = :quantite_st WHERE `stocks`.`id_st` = :id_st";
+                    $query = "UPDATE `stocks` SET `quantite_st` = `quantite_st` - :quantite_st WHERE `stocks`.`id_st` = :id_st";
                     $this->db->query($query);
                     $this->db->bind(':id_st', $orderDetail->id_st);
-                    $this->db->bind(':quantite_st', $finalQte);
+                    $this->db->bind(':quantite_st', $orderDetail->quantite_details);
                     $this->db->execute();
                     return true;
                 } else {

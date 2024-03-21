@@ -85,15 +85,6 @@ switch ($action) {
             $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]);
             $selectedStocks = array();
 
-            for ($i = 1; $i <= $numberOfStocks; $i++) {
-                $stock[$i] = htmlspecialchars($_POST["stock" . $i]);
-                $selectedStocks[] = $stock[$i];
-
-                $qte[$i] = htmlspecialchars($_POST["qte" . $i]);
-                $translateID_st = $stockDataAccess->translateNameToID($stock[$i]);
-                $qteAvaible = $stockDataAccess->getQteOfStock($translateID_st);
-            }
-
             if (!$stockDataAccess->compareIdenticalStock($selectedStocks)) {
                 //Tous les stocks sont uniques, continuer le processus ici
                 $actualDate = date('Y-m-d H:i:s');
@@ -106,7 +97,6 @@ switch ($action) {
                     $qte[$i] = htmlspecialchars($_POST["qte" . $i]);
                     // //traduit le nom du stock par son id
                     $translateID_st = $stockDataAccess->translateNameToID($stock[$i]);
-
                     //creer un details de la commande
                     $orderDataAccess->createOrderDetails($targetedOrder, $translateID_st, $qte[$i]);
                 }

@@ -32,13 +32,10 @@ class User
             if (password_verify($password, $user->mot_de_passe) && $user->active == '1') {
                 $_SESSION['id_u'] = $user->id_u;
                 $_SESSION['id_role'] = $user->id_role;
-
                 return true;
             } else {
                 return false;
             }
-        } else {
-            $_SESSION["messageBox"] = "loginError"; //todo : handle messages
         }
     }
 

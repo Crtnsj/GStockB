@@ -35,3 +35,11 @@ a {
   color: black;
   text-decoration: none;
 }
+i {
+  min-width: 2rem;
+  aspect-ratio: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

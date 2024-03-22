@@ -31,7 +31,9 @@
         </div>
         <div class="content">
         <?php endif; ?>
-        <?php if (isset($_COOKIE["errorMessage"])) : ?>
+        <?php //si un cookie d'erreur est définit ...
+        if (isset($_COOKIE["errorMessage"])) :
+        ?>
             <div class="popUpBox--error popUpBox">
                 <button onclick="closePopUp()"><i class="ti ti-square-x"></i></button>
                 <span><?php echo $_COOKIE["errorMessage"]; ?></span>

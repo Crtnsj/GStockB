@@ -47,7 +47,10 @@ switch ($action) {
         break;
     case "validForm":
         //for create account
-        if (isset($_POST["nom_u"]) && isset($_POST["prenom_u"]) && isset($_POST["id_role"]) && isset($_POST["email_u"]) && isset($_POST["mot_de_passe"])) {
+        if (
+            isset($_POST["nom_u"]) && isset($_POST["prenom_u"]) && isset($_POST["id_role"]) && isset($_POST["email_u"])
+            && isset($_POST["mot_de_passe"])
+        ) {
             $nom_u = htmlspecialchars($_POST["nom_u"]);
             $prenom_u = htmlspecialchars($_POST["prenom_u"]);
             $id_role = htmlspecialchars($_POST["id_role"]);

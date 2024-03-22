@@ -82,11 +82,17 @@ switch ($action) {
         }
         //for create an order 
         if (isset($_POST["type_co"]) && $_POST["stock1"] && isset($_POST["qte1"]) && isset($_POST["numberOfStocks"])) {
-            $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]);
+            $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]); //nombre de stocks selectionnés
             $selectedStocks = array();
 
+            //vérifie si un stock n'est pas rentré deux fois
+            for ($i = 1; $i <= $numberOfStocks; $i++) {
+                $stock[$i] = htmlspecialchars($_POST["stock" . $i]);
+                $selectedStocks[] = $stock[$i];
+            }
+
             if (!$stockDataAccess->compareIdenticalStock($selectedStocks)) {
-                //Tous les stocks sont uniques, continuer le processus ici
+                //tous les stocks sont uniques, continuer le processus ici
                 $actualDate = date('Y-m-d H:i:s');
                 $orderDataAccess->createOrder(htmlspecialchars($_POST["type_co"]), $actualDate, $_SESSION["id_u"]);
                 $targetedOrder = $orderDataAccess->getOrderByDate($actualDate, $_SESSION["id_u"]);
@@ -97,15 +103,15 @@ switch ($action) {
                     $qte[$i] = htmlspecialchars($_POST["qte" . $i]);
                     // //traduit le nom du stock par son id
                     $translateID_st = $stockDataAccess->translateNameToID($stock[$i]);
+
                     //creer un details de la commande
                     $orderDataAccess->createOrderDetails($targetedOrder, $translateID_st, $qte[$i]);
                 }
                 header("location: index.php?uc=order&action=view");
             } else {
                 setcookie("errorMessage", "Vous ne pouvez pas créer une commande qui contient deux fois le meme stock", time() + (100000), "/");
-                header("location: index.php?uc=order&action=create");
+                header("location: index.php?uc=order&action=view");
             }
         }
-
         break;
 }

@@ -26,6 +26,11 @@
   }
   &--remove {
     animation: goDown 0.5s both ease-in-out;
+    width: 20vw;
+    aspect-ratio: 2/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &--create,
   &--view {

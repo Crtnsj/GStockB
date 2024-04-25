@@ -189,10 +189,11 @@ class Order
         $result = count($queryResult);
         return $result;
     }
+
     /**
      * Get the last 10 orders sorted by date.
      *
-     * @return array An array containing the last 10 orders sorted by date.
+     * @return array An array containing the last 6 orders sorted by date.
      */
     public function getLastOrders()
     {
@@ -201,6 +202,13 @@ class Order
         $result = $this->db->resultSet();
         return $result;
     }
+
+    /**
+     * Get the status of an order.
+     *
+     * @param int $id_co The ID of the order.
+     * @return string The status of the order.
+     */
     public function getStatut($id_co)
     {
         $query = "SELECT statut_co FROM commandes WHERE `id_co` = :id_co";
@@ -209,6 +217,13 @@ class Order
         $result = $this->db->resultSet();
         return $result[0]->statut_co;
     }
+
+    /**
+     * Delete order details for a given order ID.
+     *
+     * @param int $id_co The ID of the order.
+     * @return void
+     */
     private function deleteOrdersDetails($id_co)
     {
         $query = "DELETE FROM details_commande WHERE `details_commande`.`id_co` = :id_co ";
@@ -216,6 +231,13 @@ class Order
         $this->db->bind(':id_co', $id_co);
         $this->db->execute();
     }
+
+    /**
+     * Reject an order by deleting it and its details.
+     *
+     * @param int $id_co The ID of the order to reject.
+     * @return void
+     */
     public function rejectOrder($id_co)
     {
         self::deleteOrdersDetails($id_co);

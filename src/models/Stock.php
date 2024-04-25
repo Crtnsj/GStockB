@@ -5,7 +5,7 @@ class Stock
     private $db;
 
     /**
-     * Constructor for the User class.
+     * Constructor for the Stock class.
      */
     public function __construct()
     {
@@ -185,6 +185,13 @@ class Stock
         return $result[0]->quantite_st;
     }
 
+    /**
+     * Update the quantity of stock based on the order details and type of order.
+     *
+     * @param array $orderDetails An array of order details.
+     * @param string $type_co The type of order (entrée or sortie).
+     * @return bool Returns true if the stock quantities were successfully updated, false otherwise.
+     */
     public function updateQteOfStock($orderDetails, $type_co)
     {
         foreach ($orderDetails as $orderDetail) {

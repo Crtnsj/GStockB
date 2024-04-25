@@ -190,6 +190,12 @@ class User
         }
         return false;
     }
+    /**
+     * Get a user by their ID.
+     *
+     * @param int $id_u The ID of the user.
+     * @return object The user object containing the user's ID, name, email, and role ID.
+     */
     public function getUserByID($id_u)
     {
         $query = "SELECT id_u, nom_u, prenom_u, email_u, id_role FROM utilisateurs WHERE id_u = :id_u";
@@ -198,6 +204,17 @@ class User
         $result = $this->db->resultSet();
         return $result[0];
     }
+
+    /**
+     * Update a user's information.
+     *
+     * @param int $id_u The ID of the user.
+     * @param string $nom_u The user's last name.
+     * @param string $prenom_u The user's first name.
+     * @param int $id_role The ID of the user's role.
+     * @param string $email_u The user's email address.
+     * @return void
+     */
     public function updateUser($id_u, $nom_u, $prenom_u, $id_role, $email_u)
     {
         $query = "UPDATE `utilisateurs` SET `nom_u` = :nom_u, `prenom_u` = :prenom_u, `id_role` = :id_role, `email_u`= :email_u WHERE `utilisateurs`.`id_u` = :id_u";
@@ -209,6 +226,15 @@ class User
         $this->db->bind(':email_u', $email_u);
         $this->db->execute();
     }
+
+    /**
+     * Update a user's password.
+     *
+     * @param int $id_u The ID of the user.
+     * @param string $ancien_mot_de_passe The user's current password.
+     * @param string $mot_de_passe The new password.
+     * @return bool Returns true if the password was successfully updated, false otherwise.
+     */
     public function updatePassword($id_u, $ancien_mot_de_passe, $mot_de_passe)
     {
         $verifOldPassword = self::verifOldPassword($id_u, $ancien_mot_de_passe);
@@ -222,6 +248,14 @@ class User
             return true;
         }
     }
+
+    /**
+     * Verify the user's old password.
+     *
+     * @param int $id_u The ID of the user.
+     * @param string $password The old password to verify.
+     * @return bool Returns true if the old password is verified, false otherwise.
+     */
     private function verifOldPassword($id_u, $password)
     {
         $query = "SELECT `mot_de_passe` FROM utilisateurs WHERE id_u = :id_u";
@@ -237,6 +271,13 @@ class User
             }
         }
     }
+
+    /**
+     * Translate a user's ID to their email address.
+     *
+     * @param int $id_u The ID of the user.
+     * @return string The email address of the user.
+     */
     public function translateIDtoEmail($id_u)
     {
         $query = "SELECT email_u FROM utilisateurs WHERE `utilisateurs`.`id_u` = :id_u";

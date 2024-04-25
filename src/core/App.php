@@ -63,9 +63,11 @@ switch ($uc) {
         }
         break;
     case "validLoginForm":
+        //for login
         try {
             $login = $userDataAccess->login(htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["password"]));
             if ($login) {
+                $userDataAccess->writeLog($_POST["email"] . " s'est connecté", 'loginSuccessLogs.log');
                 header("location: ./index.php?uc=home");
             } else {
                 $userDataAccess->writeLog($_POST["email"] . " a échoué la connexion", 'loginErrorLogs.log');

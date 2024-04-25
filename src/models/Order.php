@@ -224,4 +224,19 @@ class Order
         $this->db->bind(':id_co', $id_co);
         $this->db->execute();
     }
+    /**
+     * Write a log message to the specified file.
+     *
+     * @param string $message The message to write to the log.
+     * @param string $filename The name of the log file.
+     * 
+     * @return void
+     */
+    public function writeLog($message, $filename)
+    {
+        // !! important, you must have rights to the target directory
+        $logMessage = date('[Y-m-d H:i:s]') . ' ' . $message . PHP_EOL;
+        $outputFile = __DIR__ . './../../logs/' . $filename;
+        file_put_contents($outputFile, $logMessage, FILE_APPEND);
+    }
 }

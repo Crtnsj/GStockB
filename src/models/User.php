@@ -139,7 +139,7 @@ class User
     {
         // !! important, you must have rights to the target directory
         $logMessage = date('[Y-m-d H:i:s]') . ' ' . $message . PHP_EOL;
-        $outputFile = __DIR__ . '/../logs/' . $filename;
+        $outputFile = __DIR__ . './../../logs/' . $filename;
         file_put_contents($outputFile, $logMessage, FILE_APPEND);
     }
 

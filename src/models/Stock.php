@@ -194,7 +194,6 @@ class Stock
                 $this->db->bind(':id_st', $orderDetail->id_st);
                 $this->db->bind(':quantite_st', $orderDetail->quantite_details);
                 $this->db->execute();
-                return true;
             } else if ($type_co == "sortie") {
                 $qteOfStock = self::getQteOfStock($orderDetail->id_st);
                 if ($qteOfStock > $orderDetail->quantite_details) {
@@ -203,12 +202,12 @@ class Stock
                     $this->db->bind(':id_st', $orderDetail->id_st);
                     $this->db->bind(':quantite_st', $orderDetail->quantite_details);
                     $this->db->execute();
-                    return true;
                 } else {
                     return false;
                 }
             }
         }
+        return true;
     }
 
     /**
@@ -258,11 +257,27 @@ class Stock
      *
      * @return array An array of stocks with the lowest quantity.
      */
-    public function getLowStocks()
+    public function getLowStocks($limit)
     {
-        $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT 15";
+        $query = "SELECT id_st, quantite_st FROM stocks GROUP BY id_st ORDER BY quantite_st ASC LIMIT :limit";
         $this->db->query($query);
+        $this->db->bind(':limit', $limit);
         $result = $this->db->resultSet();
         return $result;
+    }
+    /**
+     * Write a log message to the specified file.
+     *
+     * @param string $message The message to write to the log.
+     * @param string $filename The name of the log file.
+     * 
+     * @return void
+     */
+    public function writeLog($message, $filename)
+    {
+        // !! important, you must have rights to the target directory
+        $logMessage = date('[Y-m-d H:i:s]') . ' ' . $message . PHP_EOL;
+        $outputFile = __DIR__ . './../../logs/' . $filename;
+        file_put_contents($outputFile, $logMessage, FILE_APPEND);
     }
 }

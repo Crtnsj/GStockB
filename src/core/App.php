@@ -22,7 +22,7 @@ switch ($uc) {
             $numberOfStock = $stockDataAccess->getNumberOfStock();
             $numberOfUser = $userDataAccess->getNumberOfActivatedUser();
             $popularStocks = $stockDataAccess->getPopularStocks();
-            $lowStocks = $stockDataAccess->getLowStocks();
+            $lowStocks = $stockDataAccess->getLowStocks(15);
             $lastOrders = $orderDataAccess->getLastOrders();
             $orderList = $orderDataAccess->handleFilter("id_co-DESC");
             include "../src/views/v_home.php";

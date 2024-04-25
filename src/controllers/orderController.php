@@ -1,5 +1,6 @@
 <?php
 
+
 $action = $_GET["action"];
 
 if (empty($_GET["filter"])) {
@@ -19,6 +20,11 @@ switch ($action) {
     case "create":
         $stocks = $stockDataAccess->getStocksNames();
         include "../src/views/order/v_createOrder.php";
+        include "../src/views/order/v_order.php";
+        break;
+    case "createLowStocks":
+        $numberOfStock = $stockDataAccess->getNumberOfStock();
+        include "../src/views/order/v_orderLowStocks.php";
         include "../src/views/order/v_order.php";
         break;
 
@@ -82,6 +88,7 @@ switch ($action) {
         }
         //for create an order 
         if (isset($_POST["type_co"]) && $_POST["stock1"] && isset($_POST["qte1"]) && isset($_POST["numberOfStocks"])) {
+            $actualDate = date('Y-m-d H:i:s');
             $numberOfStocks = htmlspecialchars($_POST["numberOfStocks"]); //nombre de stocks selectionnés
             $selectedStocks = array();
 
@@ -93,7 +100,7 @@ switch ($action) {
 
             if (!$stockDataAccess->compareIdenticalStock($selectedStocks)) {
                 //tous les stocks sont uniques, continuer le processus ici
-                $actualDate = date('Y-m-d H:i:s');
+
                 $orderDataAccess->createOrder(htmlspecialchars($_POST["type_co"]), $actualDate, $_SESSION["id_u"]);
                 $targetedOrder = $orderDataAccess->getOrderByDate($actualDate, $_SESSION["id_u"]);
                 for ($i = 1; $i <= $numberOfStocks; $i++) {
@@ -110,6 +117,34 @@ switch ($action) {
                 header("location: index.php?uc=order&action=view");
             } else {
                 setcookie("errorMessage", "Vous ne pouvez pas créer une commande qui contient deux fois le meme stock", time() + (100000), "/");
+                header("location: index.php?uc=order&action=view");
+            }
+        }
+        if (isset($_POST["nombreDeStocks"]) && isset($_POST["quantite"])) {
+            $actualDate = date('Y-m-d H:i:s');
+            if ($_POST["quantite"] > 0) {
+                try {
+                    $targetedStocks = $stockDataAccess->getLowStocks(intval($_POST["nombreDeStocks"]));
+                    if ($targetedStocks) {
+                        try {
+                            //créer une commande
+                            $orderDataAccess->createOrder('entrée', $actualDate, $_SESSION["id_u"]);
+                            $targetedOrder = $orderDataAccess->getOrderByDate($actualDate, $_SESSION["id_u"]);
+                            foreach ($targetedStocks as $stock) {
+                                //creer un details de la commande
+                                $orderDataAccess->createOrderDetails($targetedOrder, $stock->id_st, htmlspecialchars($_POST["quantite"]));
+                            }
+                            header("location: index.php?uc=order&action=view");
+                        } catch (Exception $e) {
+                            $stockDataAccess->writeLog("Nouvelle erreur inconnue : " . $e, 'unknownErrorLogs.log');
+                        }
+                    }
+                } catch (Exception $e) {
+                    setcookie("errorMessage", "Le minimum de stock est 0", time() + (100000), "/");
+                    header("location: index.php?uc=order&action=view");
+                }
+            } else {
+                setcookie("errorMessage", "La quantité ne peut être négative", time() + (100000), "/");
                 header("location: index.php?uc=order&action=view");
             }
         }

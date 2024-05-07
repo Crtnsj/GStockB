@@ -34,8 +34,8 @@
                 </td>
                 <?php echo $_SESSION['id_role'] < 3 ? "
                 <td>
-                    <a href='./index.php?uc=stock&action=update&id=<?php echo $stock->id_st; ?>'><i class='ti ti-edit'></i></a>
-                    <a href='./index.php?uc=stock&action=delete&id=<?php echo $stock->id_st; ?>'><i class='ti ti-trash-x'></i></a>
+                    <a href='./index.php?uc=stock&action=update&id=$stock->id_st'><i class='ti ti-edit'></i></a>
+                    <a href='./index.php?uc=stock&action=delete&id=$stock->id_st'><i class='ti ti-trash-x'></i></a>
                 </td>" : "" ?>
             </tr>
         <?php } ?>

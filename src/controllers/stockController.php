@@ -17,13 +17,13 @@ switch ($action) {
         break;
 
     case "create":
-        if ($_SESSION["id_role"] == 1) {
+        if ($_SESSION["id_role"] <= 2) {
             include "../src/views/stock/v_createStock.php";
             include "../src/views/stock/v_stock.php";
             break;
         }
     case "update":
-        if ($_SESSION["id_role"] == 1) {
+        if ($_SESSION["id_role"] <= 2) {
             if (isset($_GET["id"])) {
                 $id = htmlspecialchars($_GET["id"]);
                 $targetedStock  = $stockDataAccess->getStockByID($id);
@@ -37,7 +37,7 @@ switch ($action) {
         break;
 
     case "delete":
-        if ($_SESSION["id_role"] == 1) {
+        if ($_SESSION["id_role"] <= 2) {
             if (isset($_GET["id"])) {
                 $id = htmlspecialchars($_GET["id"]);
                 include "../src/views/stock/v_deleteStock.php";
@@ -50,7 +50,7 @@ switch ($action) {
         break;
 
     case "validForm":
-        if ($_SESSION["id_role"] == 1) {
+        if ($_SESSION["id_role"] <= 2) {
             //for delete a stock 
             if (isset($_POST["delete"]) && isset($_POST["id"])) {
                 try {

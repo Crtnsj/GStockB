@@ -22,7 +22,7 @@ class Stock
      */
     private function getStocks($column, $order)
     {
-        $validColumns = ['id_st', 'nom_st', 'description_st', 'quantite_st', 'type_st'];
+        $validColumns = ['id_st', 'nom_st', 'description_st', 'quantite_st', 'type_st', 'nom_f'];
 
         // Verification of a valid column
         if (!in_array($column, $validColumns)) {
@@ -34,8 +34,21 @@ class Stock
         if ($order !== 'ASC' && $order !== 'DESC') {
             $_SESSION['messageBox'] = "errorStock";
         }
+        $query = "SELECT 
+        s.id_st,
+        s.nom_st,
+        s.description_st,
+        s.quantite_st,
+        s.type_st,
+        f.nom_f 
+        FROM 
+            stocks s
+        JOIN 
+            fournisseurs f ON s.id_f = f.id_f
+        ORDER BY 
+            $column $order
+        ";
 
-        $query = "SELECT * FROM stocks ORDER BY $column $order, id_st DESC";
         $this->db->query($query);
         $result = $this->db->resultSet();
         return $result;

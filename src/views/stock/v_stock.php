@@ -8,6 +8,7 @@
             <th><a href="./index.php?uc=stock&action=view&filter=description_st-<?php echo $column === 'description_st' && $order === 'ASC' ? 'DESC' : 'ASC'; ?>">Description<i class="ti ti-selector"></i></a></th>
             <th><a href="./index.php?uc=stock&action=view&filter=quantite_st-<?php echo $column === 'quantite_st' && $order === 'ASC' ? 'DESC' : 'ASC'; ?>">Quantité <i class="ti ti-selector"></i></a></th>
             <th><a href="./index.php?uc=stock&action=view&filter=type_st-<?php echo $column === 'type_st' && $order === 'ASC' ? 'DESC' : 'ASC'; ?>">Type <i class="ti ti-selector"></i></a></th>
+            <th><a href="./index.php?uc=stock&action=view&filter=nom_f-<?php echo $column === 'nom_f' && $order === 'ASC' ? 'DESC' : 'ASC'; ?>">Fournisseur <i class="ti ti-selector"></i></a></th>
             <?php echo $_SESSION['id_role'] < 3 ? "<th>Actions</th>" : "" ?>
         </tr>
     </thead>
@@ -32,6 +33,7 @@
                             ?>
                     </div>
                 </td>
+                <td><?php echo $stock->nom_f; ?></td>
                 <?php echo $_SESSION['id_role'] < 3 ? "
                 <td>
                     <a href='./index.php?uc=stock&action=update&id=$stock->id_st'><i class='ti ti-edit'></i></a>
